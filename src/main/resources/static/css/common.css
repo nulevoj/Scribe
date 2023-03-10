@@ -1,0 +1,36 @@
+
+html body {
+    background-color: #E5E4E2;
+    color: Black;
+}
+
+a {
+  color: inherit !important;
+  text-decoration: none;
+}
+
+.container-form {
+    background-color: White;
+    width:50%;
+    margin-left:25%;
+    padding: 20px;
+}
+
+.btn-primary {
+    color: Black;
+    font-weight: bold;
+    background-color: #CDB99C;
+    border-color: transparent;
+}
+
+.btn-primary:hover {
+    color: White;
+    font-weight: bold;
+    background-color: #CDB99C;
+    border-color: #330000;
+}
+
+.form-control:active{
+    background-color: #CDB99C !important;
+}
+
