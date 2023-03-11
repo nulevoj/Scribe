@@ -3,44 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Reset Password</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" >
-    <link th:href="@{/css/common.css}" type="text/css" rel="stylesheet" />
-    <link th:href="@{/css/header.css}" type="text/css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>
+    <link th:href="@{/css/header.css}" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-
 <div th:replace="~{common/header :: header}"></div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-
-            <h1>Відновлення паролю</h1>
-            <form method="post" th:action="@{/authentication/reset}">
-
-                <!-- success -->
-                <div th:if="${param.success}">
-                    <div class="alert alert-info">Інструкція з відновлення паролю відправлена на пошту.</div>
-                </div>
-
-                <!-- email not found -->
-                <div th:if="${param.notFound}">
-                    <div class="alert alert-info">Аккаунт з такою поштою не знайдено.</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Пошта:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Відновити</button>
-
-            </form>
-
-        </div>
+<div class="main-container">
+    <!-- success -->
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Інструкція з відновлення паролю відправлена на пошту.</div>
     </div>
+    <!-- email not found -->
+    <div th:if="${param.notFound}">
+        <div class="alert alert-info">Аккаунт з такою поштою не знайдено.</div>
+    </div>
+
+    <h1>Відновлення паролю</h1>
+    <form method="post" th:action="@{/authentication/reset}">
+        <div class="form-group">
+            <label for="email">Пошта:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Відновити</button>
+    </form>
+
+
 </div>
-
-
 </body>
 </html>

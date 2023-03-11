@@ -9,10 +9,10 @@ a {
   text-decoration: none;
 }
 
-.container-form {
+.main-container {
     background-color: White;
-    width:50%;
-    margin-left:25%;
+    width: 50%;
+    margin: 100px 0 0 25%;
     padding: 20px;
 }
 

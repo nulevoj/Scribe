@@ -1,52 +1,36 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
-
 <head>
 </head>
-
 <body>
-
 <header>
     <div id="div_header">
-
-
         <a th:href="@{/index}">
             <div class="header_element">
                 Головна
             </div>
         </a>
-
-
         <a th:href="@{/document/}">
             <div class="header_element">
                 Документи
             </div>
         </a>
-
-
         <a th:href="@{/authentication/login}">
             <div class="header_element">
                 Увійти
             </div>
         </a>
-
-
         <a th:href="@{/authentication/registration}">
             <div class="header_element">
                 Зареєструватися
             </div>
         </a>
-
-
-        <a th:href="@{/personal-area/}">
+        <a th:href="@{/account}">
             <div class="header_element">
                 Особистий кабінет
             </div>
         </a>
-
-
     </div>
 </header>
-
 </body>
 </html>

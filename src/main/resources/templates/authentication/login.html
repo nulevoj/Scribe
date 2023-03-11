@@ -3,55 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Вхід</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" >
-    <link th:href="@{/css/common.css}" type="text/css" rel="stylesheet" />
-    <link th:href="@{/css/header.css}" type="text/css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>
+    <link th:href="@{/css/header.css}" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-
 <div th:replace="~{common/header :: header}"></div>
-
-<br><br><br><br><br><br><br>
-
-<div class="container-form">
-
-    <h1>Увійти в акаунт</h1>
-
+<div class="main-container">
     <!-- success registration -->
     <div th:if="${param.success}">
         <div class="alert alert-info">Ви успішно зареєструвалися.</div>
     </div>
-
     <!-- error message -->
     <div th:if="${param.error}">
         <div class="alert alert-danger">Неправильно введені дані.</div>
     </div>
-
     <!-- logout message -->
     <div th:if="${param.logout}">
         <div class="alert alert-info">Ви вийшли з акаунту.</div>
     </div>
 
+    <h1>Увійти в акаунт</h1>
     <form th:action="@{/authentication/login}" method="post">
-
         <div class="form-group">
             <label for="username">Пошта:</label>
             <input type="text" class="form-control" autofocus="autofocus" required
-                   id="username" name="username" placeholder="Пошта" />
+                   id="username" name="username" placeholder="Пошта"/>
         </div>
-
         <div class="form-group">
             <label for="password">Пароль:</label>
             <input type="password" class="form-control" required
-                   id="password" name="password" placeholder="Пароль" />
+                   id="password" name="password" placeholder="Пароль"/>
         </div>
-
         <div class="form-group">
             <input type="submit" class="form-control btn btn-primary"
-                   id="login-submit" name="login-submit" value="Увійти" />
+                   id="login-submit" name="login-submit" value="Увійти"/>
         </div>
-
     </form>
+
 </div>
 </body>
 </html>

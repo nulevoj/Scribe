@@ -3,48 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Реєстрація</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" >
-    <link th:href="@{/css/common.css}" type="text/css" rel="stylesheet" />
-    <link th:href="@{/css/header.css}" type="text/css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>
+    <link th:href="@{/css/header.css}" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-
 <div th:replace="~{common/header :: header}"></div>
-
-<br><br><br><br><br><br><br>
-
-<div class="container-form">
-
-    <h1>Реєстрація</h1>
-
+<div class="main-container">
     <!-- error message -->
     <div th:if="${param.emailTaken}">
         <div class="alert alert-danger">Ця почта вже зареєстрована.</div>
     </div>
-
     <!-- error message -->
     <div th:if="${param.error}">
         <div class="alert alert-danger">Сталася помилка.</div>
     </div>
 
+    <h1>Реєстрація</h1>
     <form th:action="@{/authentication/registration}" method="post" th:object="${account}">
-
         <div class="form-group">
             <label class="control-label" for="email">Пошта:</label>
             <input id="email" class="form-control" th:field="*{email}" required autofocus="autofocus"/>
         </div>
-
         <div class="form-group">
             <label class="control-label" for="password">Пароль:</label>
-            <input id="password" class="form-control" th:field="*{password}" required type="password" />
+            <input id="password" class="form-control" th:field="*{password}" required type="password"/>
         </div>
-
         <div class="form-group">
-            <input type="submit" class="form-control btn btn-primary" value="Зареєструватися" />
+            <input type="submit" class="form-control btn btn-primary" value="Зареєструватися"/>
         </div>
-
     </form>
-</div>
 
+</div>
 </body>
 </html>
