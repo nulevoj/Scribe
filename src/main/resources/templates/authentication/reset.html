@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Reset Password</title>
+    <title>Відновлення паролю</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/common.css}" type="text/css" rel="stylesheet"/>
     <link th:href="@{/css/header.css}" type="text/css" rel="stylesheet"/>
@@ -19,8 +19,8 @@
         <div class="alert alert-info">Аккаунт з такою поштою не знайдено.</div>
     </div>
 
-    <h1>Відновлення паролю</h1>
-    <form method="post" th:action="@{/authentication/reset}">
+    <h3>Відновлення паролю</h3>
+    <form th:method="post" th:action="@{/authentication/reset}">
         <div class="form-group">
             <label for="email">Пошта:</label>
             <input type="email" class="form-control" id="email" name="email" required>
