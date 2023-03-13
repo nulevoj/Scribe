@@ -10,48 +10,27 @@
 </head>
 <style>
     #choose-container {
-        background-color: #CDB99C;
-        width: 50%;
         height: 40px;
         margin: 50px 0 20px 25%;
-
-        color: White;
-        text-align: center;
-        font-weight: bold;
-        white-space: nowrap;
         line-height: 40px;
-        box-shadow: 0px 0px 2px 2px #CDB99C;
     }
-
     .choose-element {
-        background-color: transparent;
         width: calc(50% - 4px);
-        height: 100%;
-
-        float: left;
-        margin: 0 2px 0 2px;
-        box-shadow: 0px 0px 2px 2px #330000;
     }
-
-    .choose-element:hover {
-        color: #330000;
-        box-shadow: 0 0 0 0 #330000;
-    }
-
 </style>
 <body>
 <div th:replace="~{common/header :: header}"></div>
 <div class="main-container">
 
     <h3>Оберіть тип акаунту</h3>
-    <div id="choose-container">
+    <div id="choose-container" class="header-container">
         <a href="#student">
-            <div class="choose-element">
+            <div class="header-element choose-element">
                 Студент
             </div>
         </a>
         <a href="#employee">
-            <div class="choose-element">
+            <div class="header-element choose-element">
                 Працівник
             </div>
         </a>

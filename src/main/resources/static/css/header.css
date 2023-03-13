@@ -1,5 +1,5 @@
 
-#div_header {
+.header-container {
 	background-color: #CDB99C;
 	width: 50%;
 	height: 50px;
@@ -13,7 +13,7 @@
 	box-shadow: 0px 0px 2px 2px #CDB99C;
 }
 
-.header_element {
+.header-element {
 	background-color: transparent;
 	width: calc(20% - 4px);
 	height: 100%;
@@ -23,7 +23,7 @@
 	box-shadow: 0px 0px 2px 2px #330000;
 }
 
-.header_element:hover {
+.header-element:hover {
     color: #330000;
 	box-shadow: 0 0 0 0 #330000;
 }
