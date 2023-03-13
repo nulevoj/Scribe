@@ -27,11 +27,14 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/authentication/**", "/css/**").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .formLogin().loginPage("/authentication/login").permitAll()
+                .formLogin()
+                .loginPage("/authentication/login")
+                .permitAll()
                 .and()
                 .logout().invalidateHttpSession(true).clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/authentication/logout"))
-                .logoutSuccessUrl("/authentication/login?logout").permitAll()
+                .logoutSuccessUrl("/authentication/login?logout")
+                .permitAll()
                 .and()
                 .authenticationProvider(authenticationProvider());
         return http.build();

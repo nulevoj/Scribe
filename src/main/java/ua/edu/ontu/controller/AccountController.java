@@ -100,8 +100,8 @@ public class AccountController {
         return "redirect:/index?unknownError";
     }
 
-    @PatchMapping("/edit-employee")
-    public String patchStudent(@ModelAttribute("employee") Employee employee) {
+    @PutMapping("/edit-employee")
+    public String patchEmployee(@ModelAttribute("employee") Employee employee) {
         String email = getEmailFromPrincipal();
         Account account = accountService.findByEmail(email);
         personService.update(account, employee);
@@ -109,7 +109,7 @@ public class AccountController {
         return "account/view/employee";
     }
 
-    @PatchMapping("/edit-student")
+    @PutMapping("/edit-student")
     public String patchStudent(@ModelAttribute("student") Student student) {
         String email = getEmailFromPrincipal();
         Account account = accountService.findByEmail(email);
