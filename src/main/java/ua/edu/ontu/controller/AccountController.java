@@ -34,9 +34,11 @@ public class AccountController {
             return "account/choose";
         }
         if (person instanceof Student) {
+            model.addAttribute("student", (Student) person);
             return "account/student";
         }
         if (person instanceof Employee) {
+            model.addAttribute("employee", (Employee) person);
             return "account/employee";
         }
         return "redirect:/";
@@ -67,12 +69,48 @@ public class AccountController {
     }
 
     @PatchMapping("/student")
-    public String patchStudent() {
+    public String patchStudent(@ModelAttribute("student") Student student) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(principal instanceof UserDetails)) {
+            return "redirect:/";
+        }
+        String email = ((UserDetails) principal).getUsername();
+
+        Account account = accountService.findByEmail(email);
+        Person person = account.getPerson();
+
+        person.setName(student.getName());
+        person.setSurname(student.getSurname());
+        person.setPatronymic(student.getPatronymic());
+
+        ((Student)person).setDegree(student.getDegree());
+        ((Student)person).setFaculty(student.getFaculty());
+        ((Student)person).setYear(student.getYear());
+        ((Student)person).setSpecialty(student.getSpecialty());
+
+        accountService.save(account);
         return "account/student";
     }
 
     @PatchMapping("/employee")
-    public String patchEmployee() {
+    public String patchStudent(@ModelAttribute("employee") Employee employee) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(principal instanceof UserDetails)) {
+            return "redirect:/";
+        }
+        String email = ((UserDetails) principal).getUsername();
+
+        Account account = accountService.findByEmail(email);
+        Person person = account.getPerson();
+
+        person.setName(employee.getName());
+        person.setSurname(employee.getSurname());
+        person.setPatronymic(employee.getPatronymic());
+
+        ((Employee)person).setDegree(employee.getDegree());
+        ((Employee)person).setPosition(employee.getPosition());
+
+        accountService.save(account);
         return "account/employee";
     }
 

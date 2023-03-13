@@ -40,6 +40,9 @@
         <h4>Студент</h4>
         <form th:method="post" th:action="@{/account/choose}" th:object="${student}">
             <div th:replace="~{common/student-form :: student}"></div>
+            <div class="form-group">
+                <input type="submit" class="form-control btn btn-primary" value="Обрати"/>
+            </div>
         </form>
     </section>
 
@@ -47,6 +50,9 @@
         <h4>Працівник</h4>
         <form th:method="post" th:action="@{/account/choose}" th:object="${employee}">
             <div th:replace="~{common/employee-form :: employee}"></div>
+            <div class="form-group">
+                <input type="submit" class="form-control btn btn-primary" value="Обрати"/>
+            </div>
         </form>
     </section>
 
