@@ -30,7 +30,6 @@ a {
     border-color: #330000;
 }
 
-.form-control:active{
+.form-control:active {
     background-color: #CDB99C !important;
 }
-

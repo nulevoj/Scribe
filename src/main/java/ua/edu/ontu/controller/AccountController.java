@@ -38,11 +38,11 @@ public class AccountController {
             return "account/choose";
         }
         if (person instanceof Student) {
-            model.addAttribute("student", (Student) person);
+            model.addAttribute("student", person);
             return "account/student";
         }
         if (person instanceof Employee) {
-            model.addAttribute("employee", (Employee) person);
+            model.addAttribute("employee", person);
             return "account/employee";
         }
         return "redirect:/";
