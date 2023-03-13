@@ -11,6 +11,7 @@ import ua.edu.ontu.model.entity.Employee;
 import ua.edu.ontu.model.entity.Person;
 import ua.edu.ontu.model.entity.Student;
 import ua.edu.ontu.service.AccountService;
+import ua.edu.ontu.service.PersonService;
 
 @Controller
 @RequestMapping("/account")
@@ -18,6 +19,9 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private PersonService personService;
 
     @GetMapping()
     public String route(Model model) {
@@ -77,17 +81,7 @@ public class AccountController {
         String email = ((UserDetails) principal).getUsername();
 
         Account account = accountService.findByEmail(email);
-        Person person = account.getPerson();
-
-        person.setName(student.getName());
-        person.setSurname(student.getSurname());
-        person.setPatronymic(student.getPatronymic());
-
-        ((Student)person).setDegree(student.getDegree());
-        ((Student)person).setFaculty(student.getFaculty());
-        ((Student)person).setYear(student.getYear());
-        ((Student)person).setSpecialty(student.getSpecialty());
-
+        personService.update(account, student);
         accountService.save(account);
         return "account/student";
     }
@@ -101,15 +95,7 @@ public class AccountController {
         String email = ((UserDetails) principal).getUsername();
 
         Account account = accountService.findByEmail(email);
-        Person person = account.getPerson();
-
-        person.setName(employee.getName());
-        person.setSurname(employee.getSurname());
-        person.setPatronymic(employee.getPatronymic());
-
-        ((Employee)person).setDegree(employee.getDegree());
-        ((Employee)person).setPosition(employee.getPosition());
-
+        personService.update(account, employee);
         accountService.save(account);
         return "account/employee";
     }
