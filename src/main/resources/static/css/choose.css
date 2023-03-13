@@ -1,8 +1,10 @@
 
-section {
-  display: none;
+.choose-container {
+    height: 40px;
+    margin: 50px 0 20px 25%;
+    line-height: 40px;
 }
 
-section:target {
-  display: block;
+.choose-element {
+    width: calc(50% - 4px);
 }

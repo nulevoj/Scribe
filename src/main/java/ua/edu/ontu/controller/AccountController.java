@@ -23,81 +23,99 @@ public class AccountController {
     @Autowired
     private PersonService personService;
 
-    @GetMapping()
-    public String route(Model model) {
+    private String getEmailFromPrincipal() {
+        //TODO: use AOP instead
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!(principal instanceof UserDetails)) {
-            return "redirect:/";
+            throw new RuntimeException("!(principal instanceof UserDetails)");
         }
-        String email = ((UserDetails) principal).getUsername();
+        return ((UserDetails) principal).getUsername();
+    }
 
+    @GetMapping()
+    public String route(Model model) {
+        String email = getEmailFromPrincipal();
         Person person = accountService.findByEmail(email).getPerson();
         if (person == null) {
-            model.addAttribute("student", new Student());
-            model.addAttribute("employee", new Employee());
-            return "account/choose";
-        }
-        if (person instanceof Student) {
-            model.addAttribute("student", person);
-            return "account/student";
+            return "account/choose/choose";
         }
         if (person instanceof Employee) {
             model.addAttribute("employee", person);
-            return "account/employee";
+            return "account/view/employee";
         }
-        return "redirect:/";
+        if (person instanceof Student) {
+            model.addAttribute("student", person);
+            return "account/view/student";
+        }
+        return "redirect:/index?unknownError";
     }
 
-    @PostMapping("/choose")
-    public String choose(@RequestParam("person") String type,
-                         @ModelAttribute("student") Student student,
-                         @ModelAttribute("employee") Employee employee) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!(principal instanceof UserDetails)) {
-            return "redirect:/";
-        }
-        String email = ((UserDetails) principal).getUsername();
+    @GetMapping("/choose-employee")
+    public String chooseEmployeePage(Model model) {
+        model.addAttribute("employee", new Employee());
+        return "account/choose/choose-employee";
+    }
 
+    @GetMapping("/choose-student")
+    public String chooseStudentPage(Model model) {
+        model.addAttribute("student", new Student());
+        return "account/choose/choose-student";
+    }
+
+    @PostMapping("/choose-employee")
+    public String createEmployee(@ModelAttribute("employee") Employee employee) {
+        String email = getEmailFromPrincipal();
         Account account = accountService.findByEmail(email);
-        Person person = null;
-        if (type.equals("student")) {
-            person = student;
-        }
-        if (type.equals("employee")) {
-            person = employee;
-        }
-        account.setPerson(person);
-        person.setAccount(account);
+        account.setPerson(employee);
+        employee.setAccount(account);
         accountService.save(account);
         return "redirect:/account";
     }
 
-    @PatchMapping("/student")
-    public String patchStudent(@ModelAttribute("student") Student student) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!(principal instanceof UserDetails)) {
-            return "redirect:/";
-        }
-        String email = ((UserDetails) principal).getUsername();
-
+    @PostMapping("/choose-student")
+    public String createEmployee(@ModelAttribute("student") Student student) {
+        String email = getEmailFromPrincipal();
         Account account = accountService.findByEmail(email);
-        personService.update(account, student);
+        account.setPerson(student);
+        student.setAccount(account);
         accountService.save(account);
-        return "account/student";
+        return "redirect:/account";
     }
 
-    @PatchMapping("/employee")
-    public String patchStudent(@ModelAttribute("employee") Employee employee) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!(principal instanceof UserDetails)) {
-            return "redirect:/";
+    @GetMapping("/edit")
+    public String editPage(Model model) {
+        String email = getEmailFromPrincipal();
+        Person person = accountService.findByEmail(email).getPerson();
+        if (person == null) {
+            return "account/choose/choose";
         }
-        String email = ((UserDetails) principal).getUsername();
+        if (person instanceof Employee) {
+            model.addAttribute("employee", person);
+            return "account/edit/employee";
+        }
+        if (person instanceof Student) {
+            model.addAttribute("student", person);
+            return "account/edit/student";
+        }
+        return "redirect:/index?unknownError";
+    }
 
+    @PatchMapping("/edit-employee")
+    public String patchStudent(@ModelAttribute("employee") Employee employee) {
+        String email = getEmailFromPrincipal();
         Account account = accountService.findByEmail(email);
         personService.update(account, employee);
         accountService.save(account);
-        return "account/employee";
+        return "account/view/employee";
+    }
+
+    @PatchMapping("/edit-student")
+    public String patchStudent(@ModelAttribute("student") Student student) {
+        String email = getEmailFromPrincipal();
+        Account account = accountService.findByEmail(email);
+        personService.update(account, student);
+        accountService.save(account);
+        return "account/view/student";
     }
 
     @DeleteMapping("/delete")
