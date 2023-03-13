@@ -69,7 +69,6 @@ public class AccountService implements UserDetailsService {
     }
 
     public Account save(Account account) {
-        account.addRole(new Role(Roles.USER));
         return accountRepository.save(account);
     }
 
