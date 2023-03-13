@@ -13,7 +13,11 @@
 
     <h3>Редагування даних</h3>
     <form th:method="patch" th:action="@{/account/edit-employee}" th:object="${employee}">
-        <input type="hidden" name="person" value="employee">
+        <div class="form-group" style="margin: 20px 0 20px 0; width: 20%;">
+            <a th:href="@{/account}">
+                <input type="button" class="form-control btn btn-primary" value="Назад"/>
+            </a>
+        </div>
         <!-- class Person -->
         <div class="form-group">
             <label for="name" class="control-label">Ім'я:</label>

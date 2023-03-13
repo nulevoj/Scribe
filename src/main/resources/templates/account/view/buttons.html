@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<buttons>
+    <div class="header-container view-container">
+
+        <a th:href="@{/account/edit}">
+            <div class="header-element view-element">
+                Редагувати
+            </div>
+        </a>
+
+        <a th:href="@{/authentication/logout}">
+            <div class="header-element view-element" id="logout">
+                Логаут
+            </div>
+        </a>
+
+    </div>
+</buttons>
+</body>
+</html>
