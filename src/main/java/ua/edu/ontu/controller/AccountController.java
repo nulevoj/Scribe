@@ -29,7 +29,6 @@ public class AccountController {
 
         Person person = accountService.findByEmail(email).getPerson();
         if (person == null) {
-            model.addAttribute("person", null);
             model.addAttribute("student", new Student());
             model.addAttribute("employee", new Employee());
             return "account/choose";
@@ -44,8 +43,9 @@ public class AccountController {
     }
 
     @PostMapping("/choose")
-    public String choose(@RequestParam("person") String type, @ModelAttribute("student") Student student,
-                         @ModelAttribute("employee") Employee employee, Model model) {
+    public String choose(@RequestParam("person") String type,
+                         @ModelAttribute("student") Student student,
+                         @ModelAttribute("employee") Employee employee) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!(principal instanceof UserDetails)) {
             return "redirect:/";

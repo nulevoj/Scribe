@@ -39,72 +39,14 @@
     <section id="student">
         <h4>Студент</h4>
         <form th:method="post" th:action="@{/account/choose}" th:object="${student}">
-            <input type="hidden" name="person" value="student">
-            <!-- class Person -->
-            <div class="form-group">
-                <label for="name_student" class="control-label">Ім'я:</label>
-                <input id="name_student" class="form-control" th:field="*{name}"/>
-            </div>
-            <div class="form-group">
-                <label for="surname_student" class="control-label">Прізвище:</label>
-                <input id="surname_student" class="form-control" th:field="*{surname}"/>
-            </div>
-            <div class="form-group">
-                <label for="patronymic_student" class="control-label">По батькові:</label>
-                <input id="patronymic_student" class="form-control" th:field="*{patronymic}"/>
-            </div>
-            <!-- class Employee -->
-            <div class="form-group">
-                <label for="faculty" class="control-label">Факультет:</label>
-                <input id="faculty" class="form-control" th:field="*{faculty}"/>
-            </div>
-            <div class="form-group">
-                <label for="degree_student" class="control-label">Освітньо-кваліфікаційний рівень:</label>
-                <input id="degree_student" class="form-control" th:field="*{degree}"/>
-            </div>
-            <div class="form-group">
-                <label for="specialty" class="control-label">Спеціальність:</label>
-                <input id="specialty" class="form-control" th:field="*{specialty}"/>
-            </div>
-            <div class="form-group">
-                <label for="year" class="control-label">Рік навчання (курс):</label>
-                <input id="year" class="form-control" th:field="*{year}"/>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="form-control btn btn-primary" value="Обрати"/>
-            </div>
+            <div th:replace="~{common/student-form :: student}"></div>
         </form>
     </section>
 
     <section id="employee">
         <h4>Працівник</h4>
         <form th:method="post" th:action="@{/account/choose}" th:object="${employee}">
-            <input type="hidden" name="person" value="employee">
-            <!-- class Person -->
-            <div class="form-group">
-                <label for="name_employee" class="control-label">Ім'я:</label>
-                <input id="name_employee" class="form-control" th:field="*{name}"/>
-            </div>
-            <div class="form-group">
-                <label for="surname_employee" class="control-label">Прізвище:</label>
-                <input id="surname_employee" class="form-control" th:field="*{surname}"/>
-            </div>
-            <div class="form-group">
-                <label for="patronymic_employee" class="control-label">По батькові:</label>
-                <input id="patronymic_employee" class="form-control" th:field="*{patronymic}"/>
-            </div>
-            <!-- class Employee -->
-            <div class="form-group">
-                <label for="position" class="control-label">Посада:</label>
-                <input id="position" class="form-control" th:field="*{position}"/>
-            </div>
-            <div class="form-group">
-                <label for="degree_employee" class="control-label">Науковий ступінь:</label>
-                <input id="degree_employee" class="form-control" th:field="*{degree}"/>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="form-control btn btn-primary" value="Обрати"/>
-            </div>
+            <div th:replace="~{common/employee-form :: employee}"></div>
         </form>
     </section>
 

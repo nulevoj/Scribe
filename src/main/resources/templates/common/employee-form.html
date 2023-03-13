@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<employee>
+    <input type="hidden" name="person" value="employee">
+    <!-- class Person -->
+    <div class="form-group">
+        <label for="name_employee" class="control-label">Ім'я:</label>
+        <input id="name_employee" class="form-control" th:field="*{name}"/>
+    </div>
+    <div class="form-group">
+        <label for="surname_employee" class="control-label">Прізвище:</label>
+        <input id="surname_employee" class="form-control" th:field="*{surname}"/>
+    </div>
+    <div class="form-group">
+        <label for="patronymic_employee" class="control-label">По батькові:</label>
+        <input id="patronymic_employee" class="form-control" th:field="*{patronymic}"/>
+    </div>
+    <!-- class Employee -->
+    <div class="form-group">
+        <label for="position" class="control-label">Посада:</label>
+        <input id="position" class="form-control" th:field="*{position}"/>
+    </div>
+    <div class="form-group">
+        <label for="degree_employee" class="control-label">Науковий ступінь:</label>
+        <input id="degree_employee" class="form-control" th:field="*{degree}"/>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="form-control btn btn-primary" value="Обрати"/>
+    </div>
+</employee>
+</body>
+</html>
