@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.edu.ontu.model.entity.Document;
 
+import java.util.Optional;
+
 @Repository
 public interface DocumentRepository extends CrudRepository<Document, Long> {
 
@@ -12,10 +14,16 @@ public interface DocumentRepository extends CrudRepository<Document, Long> {
     Iterable<Document> findAll();
 
     @Override
+    Optional<Document> findById(Long id);
+
+    @Override
     Document save(Document document);
 
     @Override
     void delete(Document document);
+
+    @Override
+    void deleteById(Long id);
 
     @Transactional
     void deleteByFileName(String fileName);

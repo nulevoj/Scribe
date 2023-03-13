@@ -15,6 +15,10 @@ public class DocumentService {
         return documentRepository.findAll();
     }
 
+    public Document findById(long id) {
+        return documentRepository.findById(id).get();
+    }
+
     public Document findByFileName(String fileName) {
         return documentRepository.findByFileName(fileName);
     }
@@ -31,8 +35,16 @@ public class DocumentService {
         documentRepository.delete(document);
     }
 
+    public void delete(long id) {
+        documentRepository.deleteById(id);
+    }
+
     public boolean isExist(String fileName) {
         return documentRepository.existsByFileName(fileName);
+    }
+
+    public void update(long id, Document document) {
+
     }
 
 }
