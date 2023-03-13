@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.model.entity.Employee;
 import ua.edu.ontu.model.entity.Person;
 import ua.edu.ontu.model.entity.Student;
@@ -28,6 +29,7 @@ public class AccountController {
 
         Person person = accountService.findByEmail(email).getPerson();
         if (person == null) {
+            model.addAttribute("person", null);
             model.addAttribute("student", new Student());
             model.addAttribute("employee", new Employee());
             return "account/choose";
@@ -42,13 +44,25 @@ public class AccountController {
     }
 
     @PostMapping("/choose")
-    public String choose(@RequestParam("person") String person, Model model) {
-        if (person.equals("student")){
-            System.out.println("Student");
+    public String choose(@RequestParam("person") String type, @ModelAttribute("student") Student student,
+                         @ModelAttribute("employee") Employee employee, Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(principal instanceof UserDetails)) {
+            return "redirect:/";
         }
-        if (person.equals("employee")){
-            System.out.println("Employee");
+        String email = ((UserDetails) principal).getUsername();
+
+        Account account = accountService.findByEmail(email);
+        Person person = null;
+        if (type.equals("student")) {
+            person = student;
         }
+        if (type.equals("employee")) {
+            person = employee;
+        }
+        account.setPerson(person);
+        person.setAccount(account);
+        accountService.save(account);
         return "redirect:/account";
     }
 
