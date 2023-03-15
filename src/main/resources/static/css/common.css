@@ -1,0 +1,17 @@
+
+html body {
+    background-color: #E5E4E2;
+    color: Black;
+}
+
+a {
+  color: inherit !important;
+  text-decoration: none;
+}
+
+.main-container {
+    background-color: White;
+    width: 50%;
+    margin: 100px 0 100px 25%;
+    padding: 20px;
+}

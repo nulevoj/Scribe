@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<header>
+    <link th:href="@{/css/buttons.css}" type="text/css" rel="stylesheet"/>
+    <style>
+        .header-container {
+            height: 50px;
+            line-height: 50px;
+            width: 50%;
+            margin: 2px 0px 0px 25%;
+        }
+
+        .header-element {
+            width: calc(20% - 4px);
+        }
+    </style>
+
+    <div class="scribe-container header-container">
+        <a th:href="@{/index}">
+            <div class="scribe-element header-element">
+                Головна
+            </div>
+        </a>
+        <a th:href="@{/document/}">
+            <div class="scribe-element header-element">
+                Документи
+            </div>
+        </a>
+        <a th:href="@{/authentication/login}">
+            <div class="scribe-element header-element">
+                Увійти
+            </div>
+        </a>
+        <a th:href="@{/authentication/registration}">
+            <div class="scribe-element header-element">
+                Зареєструватися
+            </div>
+        </a>
+        <a th:href="@{/account}">
+            <div class="scribe-element header-element">
+                Особистий кабінет
+            </div>
+        </a>
+    </div>
+
+</header>
+</body>
+</html>

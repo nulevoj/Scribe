@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Головна</title>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="main-container">
+    <!-- message -->
+    <div th:if="${param.alreadyLoggedIn}">
+        <div class="alert alert-info">Ви вже війшли в акаунт.</div>
+    </div>
+    <!-- message -->
+    <div th:if="${param.unknownError}">
+        <div class="alert alert-info">Ви вже війшли в акаунт.</div>
+    </div>
+
+    <h3>Головна сторінка</h3>
+
+</div>
+</body>
+</html>

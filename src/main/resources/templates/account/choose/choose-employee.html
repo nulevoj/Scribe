@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Обрати тип акаунту</title>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="main-container">
+
+    <div th:replace="~{account/choose/buttons :: buttons}"></div>
+
+    <h4>Працівник</h4>
+    <form th:method="post" th:action="@{/account/choose-employee}" th:object="${employee}">
+        <input type="hidden" name="person" value="employee">
+        <!-- class Person -->
+        <div class="form-group">
+            <label for="name" class="control-label">Ім'я:</label>
+            <input id="name" class="form-control" th:field="*{name}"/>
+        </div>
+        <div class="form-group">
+            <label for="surname" class="control-label">Прізвище:</label>
+            <input id="surname" class="form-control" th:field="*{surname}"/>
+        </div>
+        <div class="form-group">
+            <label for="patronymic" class="control-label">По батькові:</label>
+            <input id="patronymic" class="form-control" th:field="*{patronymic}"/>
+        </div>
+        <!-- class Employee -->
+        <div class="form-group">
+            <label for="position" class="control-label">Посада:</label>
+            <input id="position" class="form-control" th:field="*{position}"/>
+        </div>
+        <div class="form-group">
+            <label for="degree" class="control-label">Науковий ступінь:</label>
+            <input id="degree" class="form-control" th:field="*{degree}"/>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="form-control btn btn-primary" value="Обрати"/>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>

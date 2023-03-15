@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Відновлення паролю</title>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="main-container">
+    <!-- success -->
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Інструкція з відновлення паролю відправлена на пошту.</div>
+    </div>
+    <!-- email not found -->
+    <div th:if="${param.notFound}">
+        <div class="alert alert-info">Аккаунт з такою поштою не знайдено.</div>
+    </div>
+    <!-- error -->
+    <div th:if="${param.error}">
+        <div class="alert alert-info">Сталася помилка.</div>
+    </div>
+
+    <h3>Відновлення паролю</h3>
+    <form th:method="post" th:action="@{/authentication/reset}">
+        <div class="form-group">
+            <label for="email">Пошта:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Відновити</button>
+    </form>
+
+</div>
+</body>
+</html>

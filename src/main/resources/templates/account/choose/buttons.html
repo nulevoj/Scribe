@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<buttons>
+    <style>
+        .choose-container {
+            width: 50%;
+            margin: 20px 0 20px 25%;
+        }
+
+        .choose-element {
+            width: calc(50% - 4px);
+        }
+    </style>
+
+    <h3>Оберіть тип акаунту</h3>
+    <div class="scribe-container choose-container">
+        <a th:href="@{/account/choose-employee}">
+            <div class="scribe-element choose-element">
+                Працівник
+            </div>
+        </a>
+        <a th:href="@{/account/choose-student}">
+            <div class="scribe-element choose-element">
+                Студент
+            </div>
+        </a>
+    </div>
+
+</buttons>
+</body>
+</html>

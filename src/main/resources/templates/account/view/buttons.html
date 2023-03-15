@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<buttons>
+    <style>
+        .view-element {
+            width: calc(20% - 4px);
+        }
+
+        #logout {
+            margin-left: 60%;
+            background-color: #7E191B;
+        }
+
+        #logout:hover {
+            color: White;
+            background-color: #7E191B;
+        }
+    </style>
+
+    <div class="scribe-container">
+        <a th:href="@{/account/edit}">
+            <div class="scribe-element view-element">
+                Редагувати
+            </div>
+        </a>
+        <a th:href="@{/authentication/logout}">
+            <div class="scribe-element view-element" id="logout">
+                Вихід
+            </div>
+        </a>
+    </div>
+
+</buttons>
+</body>
+</html>

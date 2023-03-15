@@ -1,0 +1,23 @@
+
+.scribe-container {
+    background-color: transparent;
+    margin: 25px 0% 25px 0%;
+    color: White;
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+    height: 40px;
+    line-height: 40px;
+}
+
+.scribe-element {
+    float: left;
+    background-color: #CDB99C;
+    box-shadow: 0px 0px 2px 2px #330000;
+    margin: 0 2px 0 2px;
+}
+
+.scribe-element:hover {
+    box-shadow: none;
+    color: #330000;
+}
