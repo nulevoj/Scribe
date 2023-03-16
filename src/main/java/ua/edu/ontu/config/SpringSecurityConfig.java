@@ -24,7 +24,7 @@ public class SpringSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth ->
                         auth
-                                .requestMatchers("/authentication/**", "/css/**").permitAll()
+                                .requestMatchers("/authentication/**", "/css/**", "/pictures/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin()
