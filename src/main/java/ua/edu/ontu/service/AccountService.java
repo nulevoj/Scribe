@@ -9,8 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ua.edu.ontu.dto.AccountDto;
-import ua.edu.ontu.exception.EmailIsTakenException;
+import ua.edu.ontu.dto.RegistrationDto;
 import ua.edu.ontu.model.Roles;
 import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.model.entity.Role;
@@ -56,12 +55,11 @@ public class AccountService implements UserDetailsService {
         return accountRepository.findByEmail(email);
     }
 
-    public Account save(AccountDto accountDto) throws EmailIsTakenException {
-        Account account = findByEmail(accountDto.getEmail());
-        if (account != null) {
-            throw new EmailIsTakenException(accountDto.getEmail());
+    public Account saveDto(RegistrationDto accountDto) {
+        if (isExist(accountDto.getEmail())) {
+            throw new RuntimeException("Email already taken. ");
         }
-        account = new Account();
+        Account account = new Account();
         account.setEmail(accountDto.getEmail());
         account.setPassword(passwordEncoder.encode(accountDto.getPassword()));
         account.addRole(roleService.findByName(Roles.USER));
