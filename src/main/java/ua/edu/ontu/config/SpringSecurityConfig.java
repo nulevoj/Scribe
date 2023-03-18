@@ -9,14 +9,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import ua.edu.ontu.service.AccountService;
+import ua.edu.ontu.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig {
 
     @Autowired
-    private AccountService accountService;
+    private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -44,14 +47,9 @@ public class SpringSecurityConfig {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(accountService);
-        auth.setPasswordEncoder(passwordEncoder());
+        auth.setUserDetailsService(userDetailsService);
+        auth.setPasswordEncoder(passwordEncoder);
         return auth;
-    }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
 }

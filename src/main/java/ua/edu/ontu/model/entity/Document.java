@@ -9,7 +9,7 @@ public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "document_id")
-    private long documentId;
+    private Long documentId;
 
     @Column(name = "file_name", unique = true)
     private String fileName;
@@ -20,11 +20,11 @@ public class Document {
     public Document() {
     }
 
-    public long getDocumentId() {
+    public Long getDocumentId() {
         return documentId;
     }
 
-    public void setDocumentId(long documentId) {
+    public void setDocumentId(Long documentId) {
         this.documentId = documentId;
     }
 

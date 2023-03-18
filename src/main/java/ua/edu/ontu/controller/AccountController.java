@@ -23,15 +23,6 @@ public class AccountController {
     @Autowired
     private PersonService personService;
 
-    private String getEmailFromPrincipal() {
-        //TODO: use AOP instead
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!(principal instanceof UserDetails)) {
-            throw new RuntimeException("!(principal instanceof UserDetails)");
-        }
-        return ((UserDetails) principal).getUsername();
-    }
-
     @GetMapping()
     public String route(Model model) {
         String email = getEmailFromPrincipal();
@@ -64,22 +55,20 @@ public class AccountController {
 
     @PostMapping("/choose-employee")
     public String createEmployee(@ModelAttribute("employee") Employee employee) {
-        String email = getEmailFromPrincipal();
-        Account account = accountService.findByEmail(email);
-        account.setPerson(employee);
-        employee.setAccount(account);
-        accountService.save(account);
+        savePerson(employee);
         return "redirect:/account";
     }
 
     @PostMapping("/choose-student")
     public String createEmployee(@ModelAttribute("student") Student student) {
+        savePerson(student);
+        return "redirect:/account";
+    }
+
+    private Person savePerson(Person person) {
         String email = getEmailFromPrincipal();
         Account account = accountService.findByEmail(email);
-        account.setPerson(student);
-        student.setAccount(account);
-        accountService.save(account);
-        return "redirect:/account";
+        return accountService.savePerson(account, person);
     }
 
     @GetMapping("/edit")
@@ -102,25 +91,34 @@ public class AccountController {
 
     @PutMapping("/edit-employee")
     public String patchEmployee(@ModelAttribute("employee") Employee employee) {
-        String email = getEmailFromPrincipal();
-        Account account = accountService.findByEmail(email);
-        personService.update(account, employee);
-        accountService.save(account);
+        updatePerson(employee);
         return "account/view/employee";
     }
 
     @PutMapping("/edit-student")
     public String patchStudent(@ModelAttribute("student") Student student) {
+        updatePerson(student);
+        return "account/view/student";
+    }
+
+    private void updatePerson(Person person) {
         String email = getEmailFromPrincipal();
         Account account = accountService.findByEmail(email);
-        personService.update(account, student);
+        personService.update(account, person);
         accountService.save(account);
-        return "account/view/student";
     }
 
     @DeleteMapping("/delete")
     public String delete() {
         return "redirect:/authentication/login?deleted";
+    }
+
+    private String getEmailFromPrincipal() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(principal instanceof UserDetails)) {
+            throw new RuntimeException("!(principal instanceof UserDetails)");
+        }
+        return ((UserDetails) principal).getUsername();
     }
 
 }

@@ -1,6 +1,6 @@
 package ua.edu.ontu.model;
 
-public enum Roles {
+public enum RoleName {
     USER,
     EDITOR,
     ADMIN,

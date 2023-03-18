@@ -7,7 +7,7 @@ public class Student extends Person {
 
     @Id
     @Column(name = "account_id")
-    private long accountId;
+    private Long accountId;
 
     @Column(name = "faculty")
     private String faculty;
@@ -25,11 +25,11 @@ public class Student extends Person {
 
     }
 
-    public long getAccountId() {
+    public Long getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 

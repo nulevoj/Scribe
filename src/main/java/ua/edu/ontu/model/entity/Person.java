@@ -8,7 +8,7 @@ public abstract class Person {
 
     @Id
     @Column(name = "account_id")
-    private long accountId;
+    private Long accountId;
 
     @Column(name = "name")
     private String name;
@@ -35,11 +35,11 @@ public abstract class Person {
 
     }
 
-    public long getAccountId() {
+    public Long getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 

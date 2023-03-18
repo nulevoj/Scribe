@@ -1,4 +1,4 @@
-package ua.edu.ontu.model.repository;
+package ua.edu.ontu.service.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -10,11 +10,15 @@ import java.util.Optional;
 @Repository
 public interface DocumentRepository extends CrudRepository<Document, Long> {
 
+    boolean existsByFileName(String fileName);
+
     @Override
     Iterable<Document> findAll();
 
     @Override
     Optional<Document> findById(Long id);
+
+    Document findByFileName(String fileName);
 
     @Override
     Document save(Document document);
@@ -27,9 +31,5 @@ public interface DocumentRepository extends CrudRepository<Document, Long> {
 
     @Transactional
     void deleteByFileName(String fileName);
-
-    Document findByFileName(String fileName);
-
-    boolean existsByFileName(String fileName);
 
 }

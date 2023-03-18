@@ -12,7 +12,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
-    private long accountId;
+    private Long accountId;
 
     @Column(name = "email", unique = true, updatable = false)
     private String email;
@@ -43,11 +43,11 @@ public class Account {
         roles.add(role);
     }
 
-    public long getAccountId() {
+    public Long getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(long accountId) {
+    public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }
 

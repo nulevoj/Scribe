@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import ua.edu.ontu.model.Roles;
+import ua.edu.ontu.model.RoleName;
+import ua.edu.ontu.model.entity.Role;
 import ua.edu.ontu.service.RoleService;
 
 @Component
@@ -20,11 +21,11 @@ public class SetupRoleLoader implements ApplicationListener<ContextRefreshedEven
         if (alreadySetup) {
             return;
         }
-
-        for (Roles role : Roles.values()) {
-            roleService.saveIfNotExist(role);
+        for (RoleName roleName : RoleName.values()) {
+            if (!roleService.isExist(roleName)) {
+                roleService.save(new Role(roleName));
+            }
         }
-
         alreadySetup = true;
     }
 

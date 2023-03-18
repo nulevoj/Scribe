@@ -21,7 +21,7 @@ public class DocumentController {
     }
 
     @GetMapping("/{id}")
-    public String documentPage(@PathVariable("id") long id, Model model) {
+    public String documentPage(@PathVariable("id") Long id, Model model) {
         Document document = documentService.findById(id);
         model.addAttribute("document", document);
         return "document/info";
@@ -40,20 +40,20 @@ public class DocumentController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(@PathVariable("id") long id, Model model) {
+    public String edit(@PathVariable("id") Long id, Model model) {
         Document document = documentService.findById(id);
         model.addAttribute("document", document);
         return "document/edit";
     }
 
     @PutMapping("/{id}")
-    public String update(@PathVariable("id") long id, @ModelAttribute("document") Document document) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute("document") Document document) {
         documentService.update(id, document);
         return "redirect:/document/" + id;
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") long id) {
+    public String delete(@PathVariable("id") Long id) {
         documentService.delete(id);
         return "redirect:/document";
     }

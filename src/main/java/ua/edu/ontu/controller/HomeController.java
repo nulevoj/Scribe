@@ -13,12 +13,12 @@ public class HomeController {
 
     @GetMapping("/home")
     public String homePage() {
-        return page();
+        return "redirect:/";
     }
 
     @GetMapping("/index")
     public String indexPage() {
-        return page();
+        return "redirect:/";
     }
 
 }

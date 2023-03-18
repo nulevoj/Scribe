@@ -1,7 +1,7 @@
 package ua.edu.ontu.model.entity;
 
 import jakarta.persistence.*;
-import ua.edu.ontu.model.Roles;
+import ua.edu.ontu.model.RoleName;
 
 @Entity
 @Table(name = "role")
@@ -10,32 +10,32 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
-    private long roleId;
+    private Long roleId;
 
     @Column(name = "name", unique = true)
-    @Enumerated(value = EnumType.ORDINAL)
-    private Roles name;
+    @Enumerated(value = EnumType.STRING)
+    private RoleName name;
 
     public Role() {
     }
 
-    public Role(Roles name) {
+    public Role(RoleName name) {
         this.name = name;
     }
 
-    public long getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 
-    public Roles getName() {
+    public RoleName getName() {
         return name;
     }
 
-    public void setName(Roles name) {
+    public void setName(RoleName name) {
         this.name = name;
     }
 

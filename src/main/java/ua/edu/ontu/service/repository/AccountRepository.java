@@ -1,4 +1,4 @@
-package ua.edu.ontu.model.repository;
+package ua.edu.ontu.service.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -8,6 +8,10 @@ import ua.edu.ontu.model.entity.Account;
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Long> {
 
+    boolean existsByEmail(String email);
+
+    Account findByEmail(String email);
+
     @Override
     Account save(Account account);
 
@@ -16,9 +20,5 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
 
     @Transactional
     void deleteByEmail(String email);
-
-    Account findByEmail(String email);
-
-    boolean existsByEmail(String email);
 
 }

@@ -2,9 +2,9 @@ package ua.edu.ontu.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.edu.ontu.model.Roles;
+import ua.edu.ontu.model.RoleName;
 import ua.edu.ontu.model.entity.Role;
-import ua.edu.ontu.model.repository.RoleRepository;
+import ua.edu.ontu.service.repository.RoleRepository;
 
 @Service
 public class RoleService {
@@ -12,17 +12,12 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public Role saveIfNotExist(Roles roleName) {
-        Role role = findByName(roleName);
-        if (role == null) {
-            role = new Role(roleName);
-            save(role);
-        }
-        return role;
+    public boolean isExist(RoleName roleName) {
+        return roleRepository.existsByName(roleName);
     }
 
-    public Role findByName(Roles name) {
-        return roleRepository.findByName(name);
+    public Role findByName(RoleName roleName) {
+        return roleRepository.findByName(roleName);
     }
 
     public Role save(Role role) {
