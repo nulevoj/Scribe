@@ -7,9 +7,31 @@
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="main-container">
+    <!-- emptyFile -->
+    <div th:if="${param.emptyFile}">
+        <div class="alert alert-warning">Додайте файл.</div>
+    </div>
+    <!-- fileExist -->
+    <div th:if="${param.fileExist}">
+        <div class="alert alert-warning">Такий файл все існує у базі. Переіменуйте його, або видаліть старий.</div>
+    </div>
 
-    <h3>Додати документ</h3>
-
+    <h4>Додати документ</h4>
+    <form th:method="post" th:action="@{/document}" enctype="multipart/form-data">
+        <div>
+            <label for="file" class="control-label">Оберіть файл:</label>
+            <input id="file" class="form-control" type="file" accept=".docx" name="file"
+                   style="height: auto; padding: 0;">
+        </div>
+        <div style="margin: 20px 0 20px 0;">
+            <label for="description" class="control-label">Опис документу (максимум 100 символів):</label>
+            <textarea id="description" class="form-control" name="description"
+                      maxlength="100" style="height:100px; min-height: 50px;"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="form-control btn btn-primary" value="Обрати"/>
+        </div>
+    </form>
 
 </div>
 </body>
