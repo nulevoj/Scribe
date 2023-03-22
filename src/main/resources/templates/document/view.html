@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Перегляд документу</title>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="main-container">
+    <!-- success -->
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Документ збережено.</div>
+    </div>
+    <!-- error -->
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">Сталася помилка.</div>
+    </div>
+    <!-- deletionFailed -->
+    <div th:if="${param.deletionFailed}">
+        <div class="alert alert-danger">Помилка при видаленні документу.</div>
+    </div>
+
+    <h3>Перегляд документу</h3>
+    <buttons>
+        <style>
+        .view-element {
+            margin: 0 6% 0 6%;
+            width: calc(20% - 4px);
+        }
+
+        #delete {
+            background-color: #7E191B;
+        }
+
+        #delete:hover {
+            color: White;
+            background-color: #7E191B;
+        }
+        </style>
+        <div class="scribe-container">
+            <a th:href="@{/document/{id}/edit(id=${document.documentId})}">
+                <div class="scribe-element view-element">
+                    Редагувати
+                </div>
+            </a>
+            <a>
+                <div class="scribe-element view-element">
+                    Продовжити
+                </div>
+            </a>
+            <a th:href="@{/document/{id}/delete(id=${document.documentId})}">
+                <div class="scribe-element view-element" id="delete">
+                    Видалити
+                </div>
+            </a>
+        </div>
+    </buttons>
+
+    <form th:object="${document}">
+        <div class="form-group">
+            <label for="fileName" class="control-label">Файл:</label>
+            <input id="fileName" class="form-control" th:field="*{fileName}" readonly/>
+        </div>
+        <div class="form-group">
+            <label for="description" class="control-label">Опис документу:</label>
+            <textarea id="description" class="form-control" th:field="*{description}"
+                      maxlength="100" style="height:100px; min-height: 50px;" readonly></textarea>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>

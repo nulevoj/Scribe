@@ -7,6 +7,14 @@
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="main-container">
+    <!-- documentNotFound -->
+    <div th:if="${param.documentNotFound}">
+        <div class="alert alert-danger">Документ не знайдено в базі даних.</div>
+    </div>
+    <!-- deletionSuccess -->
+    <div th:if="${param.deletionSuccess}">
+        <div class="alert alert-info">Документ видалено.</div>
+    </div>
 
     <h3>Документи</h3>
 

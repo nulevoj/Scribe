@@ -39,8 +39,14 @@ public class DocumentService {
         return documentRepository.save(document);
     }
 
-    public void update(Long id, Document document) {
-
+    public boolean update(Long id, Document fresh) {
+        Document document = findById(id);
+        if (document == null) {
+            return false;
+        }
+        document.setDescription(fresh.getDescription());
+        save(document);
+        return true;
     }
 
     public void delete(Document document) {

@@ -60,8 +60,11 @@ public class DocumentController {
     @GetMapping("/{id}")
     public String documentPage(@PathVariable("id") Long id, Model model) {
         Document document = documentService.findById(id);
+        if (document == null) {
+            return "redirect:/document?documentNotFound";
+        }
         model.addAttribute("document", document);
-        return "document/info";
+        return "document/view";
     }
 
     @GetMapping("/{id}/edit")
@@ -73,14 +76,28 @@ public class DocumentController {
 
     @PutMapping("/{id}")
     public String update(@PathVariable("id") Long id, @ModelAttribute("document") Document document) {
-        documentService.update(id, document);
-        return "redirect:/document/" + id;
+        if (documentService.update(id, document)) {
+            return "redirect:/document/" + id + "?success";
+        }
+        return "redirect:/document/" + id + "?error";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String deleteViaLink(@PathVariable("id") Long id) {
+        return delete(id);
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
-        documentService.delete(id);
-        return "redirect:/document";
+        Document document = documentService.findById(id);
+        try {
+            fileService.deleteFromSourcePath(document.getFileName());
+            documentService.delete(id);
+            return "redirect:/document?deletionSuccess";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "redirect:/document?deletionFailed";
+        }
     }
 
 }

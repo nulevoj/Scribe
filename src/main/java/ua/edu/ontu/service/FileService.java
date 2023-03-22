@@ -33,4 +33,9 @@ public class FileService {
         Files.write(path, bytes);
     }
 
+    public void deleteFromSourcePath(String file) throws IOException {
+        Path path = Paths.get(sourcePath, file);
+        Files.delete(path);
+    }
+
 }
