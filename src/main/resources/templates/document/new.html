@@ -9,23 +9,27 @@
 <div class="main-container">
     <!-- emptyFile -->
     <div th:if="${param.emptyFile}">
-        <div class="alert alert-warning">Додайте файл.</div>
+        <div class="alert alert-danger">Додайте файл.</div>
+    </div>
+    <!-- error -->
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">Сталася помилка.</div>
     </div>
     <!-- fileExist -->
     <div th:if="${param.fileExist}">
-        <div class="alert alert-warning">Такий файл все існує у базі. Переіменуйте його, або видаліть старий.</div>
+        <div class="alert alert-danger">Такий файл все існує у базі. Переіменуйте його, або видаліть старий.</div>
     </div>
 
     <h4>Додати документ</h4>
-    <form th:method="post" th:action="@{/document}" enctype="multipart/form-data">
+    <form th:method="post" th:action="@{/document}" th:object="${document}" enctype="multipart/form-data">
         <div>
             <label for="file" class="control-label">Оберіть файл:</label>
-            <input id="file" class="form-control" type="file" accept=".docx" name="file"
+            <input id="file" class="form-control" th:field="*{file}" type="file" accept=".docx"
                    style="height: auto; padding: 0;">
         </div>
         <div style="margin: 20px 0 20px 0;">
             <label for="description" class="control-label">Опис документу (максимум 100 символів):</label>
-            <textarea id="description" class="form-control" name="description"
+            <textarea id="description" class="form-control" th:field="*{description}"
                       maxlength="100" style="height:100px; min-height: 50px;"></textarea>
         </div>
         <div class="form-group">

@@ -2,6 +2,7 @@ package ua.edu.ontu.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.edu.ontu.dto.NewDocumentDto;
 import ua.edu.ontu.model.entity.Document;
 import ua.edu.ontu.service.repository.DocumentRepository;
 
@@ -25,6 +26,13 @@ public class DocumentService {
 
     public Document findByFileName(String fileName) {
         return documentRepository.findByFileName(fileName);
+    }
+
+    public Document saveDto(NewDocumentDto documentDto) {
+        Document document = new Document();
+        document.setFileName(documentDto.getFile().getOriginalFilename());
+        document.setDescription(documentDto.getDescription());
+        return save(document);
     }
 
     public Document save(Document document) {

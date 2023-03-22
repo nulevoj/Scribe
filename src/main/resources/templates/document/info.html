@@ -7,6 +7,10 @@
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="main-container">
+    <!-- success registration -->
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Документ збережено.</div>
+    </div>
 
     <h3>Перегляд документу</h3>
 
