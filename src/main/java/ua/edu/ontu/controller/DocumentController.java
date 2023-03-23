@@ -24,7 +24,7 @@ public class DocumentController {
 
     @GetMapping
     public String allDocumentsPage(Model model) {
-        model.addAttribute("document", new Document());
+        model.addAttribute("documents", documentService.findAll());
         return "document/all";
     }
 
