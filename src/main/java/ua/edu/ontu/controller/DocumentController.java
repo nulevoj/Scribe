@@ -1,16 +1,22 @@
 package ua.edu.ontu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriUtils;
 import ua.edu.ontu.dto.NewDocumentDto;
 import ua.edu.ontu.model.entity.Document;
 import ua.edu.ontu.service.DocumentService;
 import ua.edu.ontu.service.FileService;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 @RequestMapping("/document")
@@ -72,6 +78,23 @@ public class DocumentController {
         Document document = documentService.findById(id);
         model.addAttribute("document", document);
         return "document/edit";
+    }
+
+    @GetMapping("/{id}/download")
+    public ResponseEntity<ByteArrayResource> download(@PathVariable("id") Long id) {
+        Document document = documentService.findById(id);
+        String fileName = document.getFileName();
+        try {
+            ByteArrayResource resource = fileService.getFileForDownloading(fileName);
+            String encodedName = UriUtils.encode(fileName, StandardCharsets.UTF_8);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + encodedName)
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .contentLength(resource.contentLength())
+                    .body(resource);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PutMapping("/{id}")

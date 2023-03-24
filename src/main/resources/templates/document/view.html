@@ -24,8 +24,8 @@
     <buttons>
         <style>
         .view-element {
-            margin: 0 6% 0 6%;
-            width: calc(20% - 4px);
+            margin: 0 2% 0 2%;
+            width: calc(21% - 4px);
         }
 
         #delete {
@@ -43,9 +43,14 @@
                     Редагувати
                 </div>
             </a>
-            <a>
+            <a th:href="@{/replace/{id}(id=${document.documentId})}">
                 <div class="scribe-element view-element">
                     Продовжити
+                </div>
+            </a>
+            <a th:href="@{/document/{id}/download(id=${document.documentId})}">
+                <div class="scribe-element view-element">
+                    Завантажити
                 </div>
             </a>
             <a th:href="@{/document/{id}/delete(id=${document.documentId})}">
