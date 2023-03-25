@@ -1,8 +1,6 @@
 package ua.edu.ontu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +10,14 @@ import ua.edu.ontu.model.entity.Person;
 import ua.edu.ontu.model.entity.Student;
 import ua.edu.ontu.service.AccountService;
 import ua.edu.ontu.service.PersonService;
+import ua.edu.ontu.service.UserDetailsServiceImpl;
 
 @Controller
 @RequestMapping("/account")
 public class AccountController {
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private AccountService accountService;
@@ -25,7 +27,7 @@ public class AccountController {
 
     @GetMapping()
     public String route(Model model) {
-        String email = getEmailFromPrincipal();
+        String email = userDetailsService.getEmailFromPrincipal();
         Person person = accountService.findByEmail(email).getPerson();
         if (person == null) {
             return "account/choose/choose";
@@ -66,14 +68,14 @@ public class AccountController {
     }
 
     private Person savePerson(Person person) {
-        String email = getEmailFromPrincipal();
+        String email = userDetailsService.getEmailFromPrincipal();
         Account account = accountService.findByEmail(email);
         return accountService.savePerson(account, person);
     }
 
     @GetMapping("/edit")
     public String editPage(Model model) {
-        String email = getEmailFromPrincipal();
+        String email = userDetailsService.getEmailFromPrincipal();
         Person person = accountService.findByEmail(email).getPerson();
         if (person == null) {
             return "account/choose/choose";
@@ -102,7 +104,7 @@ public class AccountController {
     }
 
     private void updatePerson(Person person) {
-        String email = getEmailFromPrincipal();
+        String email = userDetailsService.getEmailFromPrincipal();
         Account account = accountService.findByEmail(email);
         personService.update(account, person);
         accountService.save(account);
@@ -111,14 +113,6 @@ public class AccountController {
     @DeleteMapping("/delete")
     public String delete() {
         return "redirect:/authentication/login?deleted";
-    }
-
-    private String getEmailFromPrincipal() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!(principal instanceof UserDetails)) {
-            throw new RuntimeException("!(principal instanceof UserDetails)");
-        }
-        return ((UserDetails) principal).getUsername();
     }
 
 }

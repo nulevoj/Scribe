@@ -5,9 +5,9 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import ua.edu.ontu.scribe.placeholder.Placeholder;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -20,15 +20,23 @@ public class Scribe {
     private XWPFDocument document;
     private WordReplacer replacer;
 
-    public Scribe(File file) throws InvalidFormatException, IOException {
-        document = new XWPFDocument(OPCPackage.open(file));
-        replacer = new WordReplacer(document);
+    public Scribe(File file) {
+        try {
+            document = new XWPFDocument(OPCPackage.open(file));
+            replacer = new WordReplacer(document);
+        } catch (IOException | InvalidFormatException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public Set<String> getPlaceholders() {
+    public XWPFDocument getDocument() {
+        return document;
+    }
+
+    public Set<String> getPlaceholders(Placeholder placeholder) {
         Set<String> result = new LinkedHashSet<>();
         String text = new XWPFWordExtractor(document).getText();
-        Matcher matcher = Pattern.compile(PlaceholderUtil.getRegex()).matcher(text);
+        Matcher matcher = Pattern.compile(placeholder.getRegex()).matcher(text);
         while (matcher.find()) {
             result.add(matcher.group());
         }
@@ -44,10 +52,6 @@ public class Scribe {
         for (String placeholder : map.keySet()) {
             replace(placeholder, map.get(placeholder));
         }
-    }
-
-    public void save(File file) throws Exception {
-        document.write(new FileOutputStream(file));
     }
 
 }

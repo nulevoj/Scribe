@@ -1,5 +1,6 @@
 package ua.edu.ontu.scribe;
 
+import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.model.entity.Person;
 import ua.edu.ontu.scribe.reference.DateReference;
 import ua.edu.ontu.scribe.reference.PersonReference;
@@ -9,9 +10,9 @@ public class Vocabulary {
 
     private Reference reference = new Reference();
 
-    public Vocabulary(Person person) {
+    public Vocabulary(Account account) {
         putDate();
-        putPerson(person);
+        putPerson(account.getPerson());
     }
 
     public String get(String key) {

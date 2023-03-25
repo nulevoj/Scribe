@@ -8,13 +8,13 @@
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="main-container">
-    <!-- message -->
+    <!-- alreadyLoggedIn -->
     <div th:if="${param.alreadyLoggedIn}">
         <div class="alert alert-info">Ви вже війшли в акаунт.</div>
     </div>
-    <!-- message -->
+    <!-- unknownError -->
     <div th:if="${param.unknownError}">
-        <div class="alert alert-info">Сталася помилка.</div>
+        <div class="alert alert-danger">Сталася помилка.</div>
     </div>
 
     <h3>Головна сторінка</h3>

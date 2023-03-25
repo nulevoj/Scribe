@@ -3,6 +3,7 @@ package ua.edu.ontu.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,6 +41,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(RoleName.USER.toString()))
                 .collect(Collectors.toList());
+    }
+
+    public String getEmailFromPrincipal() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(principal instanceof UserDetails)) {
+            throw new RuntimeException("!(principal instanceof UserDetails)");
+        }
+        return ((UserDetails) principal).getUsername();
     }
 
 }

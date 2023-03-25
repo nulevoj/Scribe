@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Перевірка</title>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="main-container">
+
+    <h3>Перевірка</h3>
+    <br>
+    <strong>Перевірте правильність заміни і відкоригуйте значення, якщо потрібно.</strong>
+    <br><br>
+    <form th:method="get" th:action="@{/document/{id}/replace/download(id=${id})}"
+          th:object="${dto}">
+        <div th:each="entry : *{map}">
+            <label class="control-label" th:text="${entry.key}">:</label>
+            <input class="form-control" th:field="*{map[__${entry.key}__]}"/>
+        </div>
+        <br>
+        <input type="submit" class="form-control btn btn-primary" value="Завантажити .docx"/>
+    </form>
+
+</div>
+</body>
+</html>
