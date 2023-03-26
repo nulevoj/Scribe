@@ -28,12 +28,14 @@ public class ScribeService {
         for (String placeholder : placeholders) {
             map.put(placeholder, vocabulary.get(this.placeholder.parsePlaceholder(placeholder)));
         }
+        scribe.close();
         return map;
     }
 
     public Scribe replaceAll(String fileName, Map<String, String> map) {
         Scribe scribe = new Scribe(fileService.getFromSourcePath(fileName));
         scribe.replaceAll(map);
+        scribe.close();
         return scribe;
     }
 

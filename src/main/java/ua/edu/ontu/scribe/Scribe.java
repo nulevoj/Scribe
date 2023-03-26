@@ -54,4 +54,12 @@ public class Scribe {
         }
     }
 
+    public void close() {
+        try {
+            document.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
