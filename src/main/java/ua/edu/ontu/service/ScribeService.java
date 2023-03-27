@@ -1,5 +1,6 @@
 package ua.edu.ontu.service;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.edu.ontu.model.entity.Account;
@@ -15,13 +16,13 @@ import java.util.Set;
 public class ScribeService {
 
     @Autowired
-    private FileService fileService;
+    private SourceDirectoryFileService fileService;
 
     @Autowired
     private Placeholder placeholder;
 
     public Map<String, String> getPreliminaryReplacementMap(String fileName, Account account) {
-        Scribe scribe = new Scribe(fileService.getFromSourcePath(fileName));
+        Scribe scribe = new Scribe(fileService.getFile(fileName));
         Set<String> placeholders = scribe.getPlaceholders(placeholder);
         Map<String, String> map = new LinkedHashMap<>();
         Vocabulary vocabulary = new Vocabulary(account);
@@ -32,11 +33,10 @@ public class ScribeService {
         return map;
     }
 
-    public Scribe replaceAll(String fileName, Map<String, String> map) {
-        Scribe scribe = new Scribe(fileService.getFromSourcePath(fileName));
+    public XWPFDocument replaceAll(String fileName, Map<String, String> map) {
+        Scribe scribe = new Scribe(fileService.getFile(fileName));
         scribe.replaceAll(map);
-        scribe.close();
-        return scribe;
+        return scribe.getDocument();
     }
 
 }

@@ -1,24 +1,20 @@
 package ua.edu.ontu.controller;
 
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriUtils;
 import ua.edu.ontu.dto.MapWrapperDto;
 import ua.edu.ontu.dto.NewDocumentDto;
 import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.model.entity.Document;
-import ua.edu.ontu.scribe.Scribe;
 import ua.edu.ontu.service.*;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Controller
@@ -35,7 +31,7 @@ public class DocumentController {
     private DocumentService documentService;
 
     @Autowired
-    private FileService fileService;
+    private SourceDirectoryFileService fileService;
 
     @Autowired
     private ScribeService scribeService;
@@ -58,7 +54,7 @@ public class DocumentController {
             return "redirect:/document/new?fileExist";
         }
         try {
-            fileService.saveInSourcePath(documentDto.getFile());
+            fileService.save(documentDto.getFile());
             Document document = documentService.saveDto(documentDto);
             return "redirect:/document/" + document.getDocumentId() + "?success";
         } catch (IOException e) {
@@ -69,8 +65,7 @@ public class DocumentController {
     }
 
     @GetMapping("/new")
-    public String addPage(@ModelAttribute("document") NewDocumentDto documentDto,
-                          Model model) {
+    public String addPage(@ModelAttribute("document") NewDocumentDto documentDto, Model model) {
         model.addAttribute("document", documentDto);
         return "document/new";
     }
@@ -101,20 +96,10 @@ public class DocumentController {
     }
 
     @GetMapping("/{id}/download")
-    public ResponseEntity<ByteArrayResource> download(@PathVariable("id") Long id) {
+    public ResponseEntity<ByteArrayResource> downloadTemplate(@PathVariable("id") Long id) {
         Document document = documentService.findById(id);
         String fileName = document.getFileName();
-        try {
-            ByteArrayResource resource = fileService.getFileForDownloading(fileName);
-            String encodedName = UriUtils.encode(fileName, StandardCharsets.UTF_8);
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + encodedName)
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .contentLength(resource.contentLength())
-                    .body(resource);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return fileService.download(fileName);
     }
 
     @GetMapping("{id}/replace")
@@ -130,28 +115,15 @@ public class DocumentController {
     }
 
     @GetMapping("{id}/replace/download")
-    public ResponseEntity<ByteArrayResource> downloadScribe(@PathVariable("id") Long id,
-                                                            @ModelAttribute("dto") MapWrapperDto dto) {
+    public ResponseEntity<ByteArrayResource> downloadXWPFDocument(
+            @PathVariable("id") Long id, @ModelAttribute("dto") MapWrapperDto dto) throws IOException {
         Map<String, String> map = dto.getMap();
         Document document = documentService.findById(id);
         String fileName = document.getFileName();
-        Scribe scribe = scribeService.replaceAll(fileName, map);
-        try {
-            ByteArrayResource resource = fileService.prepareForDownloading(scribe.getDocument());
-            String encodedName = UriUtils.encode(fileName, StandardCharsets.UTF_8);
-            HttpHeaders headers = new HttpHeaders();
-            headers.add(HttpHeaders.CONTENT_DISPOSITION,
-                    "attachment; filename=" + encodedName);
-            headers.add(HttpHeaders.CONTENT_TYPE,
-                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .contentLength(resource.contentLength())
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .body(resource);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        XWPFDocument xwpfDocument = scribeService.replaceAll(fileName, map);
+        ResponseEntity<ByteArrayResource> response = fileService.download(xwpfDocument, fileName);
+        xwpfDocument.close();
+        return response;
     }
 
     @GetMapping("/{id}/delete")
@@ -163,8 +135,8 @@ public class DocumentController {
     public String delete(@PathVariable("id") Long id) {
         Document document = documentService.findById(id);
         try {
-            fileService.deleteFromSourcePath(document.getFileName());
             documentService.delete(id);
+            fileService.delete(document.getFileName());
             return "redirect:/document?deletionSuccess";
         } catch (IOException e) {
             e.printStackTrace();

@@ -22,9 +22,13 @@ public class PersonReference {
         reference.putUnique("name", person.getName());
         reference.putUnique("surname", person.getSurname());
         reference.putUnique("patronymic", person.getPatronymic());
-        reference.putUnique("initial", person.getSurname() + " " +
-                person.getName().charAt(0) + ". " +
-                person.getPatronymic().charAt(0) + ".");
+        try {
+            reference.putUnique("initial", person.getSurname() + " " +
+                    person.getName().charAt(0) + ". " +
+                    person.getPatronymic().charAt(0) + ".");
+        } catch (StringIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
         if (person instanceof Student) {
             putStudent((Student) person);

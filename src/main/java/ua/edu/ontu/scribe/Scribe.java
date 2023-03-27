@@ -1,13 +1,12 @@
 package ua.edu.ontu.scribe;
 
 import com.xandryex.WordReplacer;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import ua.edu.ontu.scribe.placeholder.Placeholder;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -22,9 +21,9 @@ public class Scribe {
 
     public Scribe(File file) {
         try {
-            document = new XWPFDocument(OPCPackage.open(file));
+            document = new XWPFDocument(new FileInputStream(file));
             replacer = new WordReplacer(document);
-        } catch (IOException | InvalidFormatException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
