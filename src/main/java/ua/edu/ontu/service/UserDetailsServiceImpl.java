@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import ua.edu.ontu.model.RoleName;
 import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.model.entity.Role;
+import ua.edu.ontu.model.service.AccountService;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

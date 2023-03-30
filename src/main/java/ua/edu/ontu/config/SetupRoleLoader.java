@@ -6,7 +6,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import ua.edu.ontu.model.RoleName;
 import ua.edu.ontu.model.entity.Role;
-import ua.edu.ontu.service.RoleService;
+import ua.edu.ontu.model.service.RoleService;
 
 @Component
 public class SetupRoleLoader implements ApplicationListener<ContextRefreshedEvent> {

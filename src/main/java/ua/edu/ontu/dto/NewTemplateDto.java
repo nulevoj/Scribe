@@ -2,7 +2,7 @@ package ua.edu.ontu.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class NewDocumentDto {
+public class NewTemplateDto {
 
     private MultipartFile file;
 

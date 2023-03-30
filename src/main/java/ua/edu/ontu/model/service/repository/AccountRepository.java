@@ -1,4 +1,4 @@
-package ua.edu.ontu.service.repository;
+package ua.edu.ontu.model.service.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

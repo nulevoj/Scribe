@@ -8,8 +8,8 @@ import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.model.entity.Employee;
 import ua.edu.ontu.model.entity.Person;
 import ua.edu.ontu.model.entity.Student;
-import ua.edu.ontu.service.AccountService;
-import ua.edu.ontu.service.PersonService;
+import ua.edu.ontu.model.service.AccountService;
+import ua.edu.ontu.model.service.PersonService;
 import ua.edu.ontu.service.UserDetailsServiceImpl;
 
 @Controller
@@ -67,10 +67,11 @@ public class AccountController {
         return "redirect:/account";
     }
 
-    private Person savePerson(Person person) {
+    private void savePerson(Person person) {
         String email = userDetailsService.getEmailFromPrincipal();
         Account account = accountService.findByEmail(email);
-        return accountService.savePerson(account, person);
+        accountService.setPerson(account, person);
+        accountService.save(account);
     }
 
     @GetMapping("/edit")

@@ -16,16 +16,24 @@ import java.util.regex.Pattern;
 
 public class Scribe {
 
-    private XWPFDocument document;
-    private WordReplacer replacer;
+    private final String filename;
+    private final FileInputStream fileInputStream;
+    private final XWPFDocument document;
+    private final WordReplacer replacer;
 
     public Scribe(File file) {
         try {
-            document = new XWPFDocument(new FileInputStream(file));
+            filename = file.getName();
+            fileInputStream = new FileInputStream(file);
+            document = new XWPFDocument(fileInputStream);
             replacer = new WordReplacer(document);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getFilename() {
+        return filename;
     }
 
     public XWPFDocument getDocument() {
@@ -55,6 +63,7 @@ public class Scribe {
 
     public void close() {
         try {
+            fileInputStream.close();
             document.close();
         } catch (IOException e) {
             throw new RuntimeException(e);

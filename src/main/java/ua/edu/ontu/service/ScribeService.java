@@ -1,13 +1,17 @@
 package ua.edu.ontu.service;
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.scribe.Scribe;
 import ua.edu.ontu.scribe.Vocabulary;
 import ua.edu.ontu.scribe.placeholder.Placeholder;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -21,8 +25,11 @@ public class ScribeService {
     @Autowired
     private Placeholder placeholder;
 
-    public Map<String, String> getPreliminaryReplacementMap(String fileName, Account account) {
-        Scribe scribe = new Scribe(fileService.getFile(fileName));
+    @Autowired
+    private DownloadService downloadService;
+
+    public Map<String, String> getPreliminaryReplacementMap(String filename, Account account) {
+        Scribe scribe = new Scribe(fileService.getFile(filename));
         Set<String> placeholders = scribe.getPlaceholders(placeholder);
         Map<String, String> map = new LinkedHashMap<>();
         Vocabulary vocabulary = new Vocabulary(account);
@@ -33,10 +40,26 @@ public class ScribeService {
         return map;
     }
 
-    public XWPFDocument replaceAll(String fileName, Map<String, String> map) {
-        Scribe scribe = new Scribe(fileService.getFile(fileName));
-        scribe.replaceAll(map);
-        return scribe.getDocument();
+    public ResponseEntity<ByteArrayResource> downloadDocx(Scribe scribe) {
+        ByteArrayResource resource;
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            scribe.getDocument().write(outputStream);
+            resource = new ByteArrayResource(outputStream.toByteArray());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String encodedName = downloadService.encodeString(scribe.getFilename());
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + encodedName);
+        headers.add(HttpHeaders.CONTENT_TYPE,
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        return downloadService.createResponse(resource, headers);
+    }
+
+    public ResponseEntity<ByteArrayResource> downloadPdf(Scribe scribe) {
+        return null;
     }
 
 }

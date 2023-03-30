@@ -1,4 +1,4 @@
-package ua.edu.ontu.service;
+package ua.edu.ontu.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -7,7 +7,7 @@ import ua.edu.ontu.dto.RegistrationDto;
 import ua.edu.ontu.model.RoleName;
 import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.model.entity.Person;
-import ua.edu.ontu.service.repository.AccountRepository;
+import ua.edu.ontu.model.service.repository.AccountRepository;
 
 @Service
 public class AccountService {
@@ -44,10 +44,10 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Person savePerson(Account account, Person person) {
+    public void setPerson(Account account, Person person) {
         account.setPerson(person);
         person.setAccount(account);
-        return save(account).getPerson();
+
     }
 
     public void delete(Account account) {

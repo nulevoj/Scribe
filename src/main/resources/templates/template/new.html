@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Додати документ</title>
+    <title>Додати шаблон</title>
     <th:block th:replace="~{fragments/head :: head}"></th:block>
 </head>
 <body>
@@ -20,15 +20,15 @@
         <div class="alert alert-danger">Такий файл все існує у базі. Переіменуйте його, або видаліть старий.</div>
     </div>
 
-    <h4>Додати документ</h4>
-    <form th:method="post" th:action="@{/document}" th:object="${document}" enctype="multipart/form-data">
+    <h4>Додати шаблон</h4>
+    <form th:method="post" th:action="@{/templates}" th:object="${template}" enctype="multipart/form-data">
         <div>
             <label for="file" class="control-label">Оберіть файл:</label>
             <input id="file" class="form-control" th:field="*{file}" type="file" accept=".docx"
                    style="height: auto; padding: 0; background-color: #CDB99C; color: White;">
         </div>
         <div style="margin: 20px 0 20px 0;">
-            <label for="description" class="control-label">Опис документу (максимум 300 символів):</label>
+            <label for="description" class="control-label">Опис шаблона (максимум 300 символів):</label>
             <textarea id="description" class="form-control" th:field="*{description}"
                       maxlength="100" style="height:300px; min-height: 50px;"></textarea>
         </div>

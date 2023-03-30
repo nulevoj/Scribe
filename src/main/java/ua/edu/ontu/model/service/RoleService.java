@@ -1,10 +1,10 @@
-package ua.edu.ontu.service;
+package ua.edu.ontu.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.edu.ontu.model.RoleName;
 import ua.edu.ontu.model.entity.Role;
-import ua.edu.ontu.service.repository.RoleRepository;
+import ua.edu.ontu.model.service.repository.RoleRepository;
 
 @Service
 public class RoleService {

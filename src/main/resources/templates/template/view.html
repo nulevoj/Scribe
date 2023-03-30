@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Перегляд документу</title>
+    <title>Перегляд шаблона</title>
     <th:block th:replace="~{fragments/head :: head}"></th:block>
 </head>
 <body>
@@ -9,7 +9,7 @@
 <div class="main-container">
     <!-- success -->
     <div th:if="${param.success}">
-        <div class="alert alert-info">Документ збережено.</div>
+        <div class="alert alert-info">Шаблон збережено.</div>
     </div>
     <!-- error -->
     <div th:if="${param.error}">
@@ -17,10 +17,10 @@
     </div>
     <!-- deletionFailed -->
     <div th:if="${param.deletionFailed}">
-        <div class="alert alert-danger">Помилка при видаленні документу.</div>
+        <div class="alert alert-danger">Помилка при видаленні шаблона.</div>
     </div>
 
-    <h3>Перегляд документу</h3>
+    <h3>Перегляд шаблона</h3>
     <buttons>
         <style>
         .view-element {
@@ -38,22 +38,22 @@
         }
         </style>
         <div class="scribe-container">
-            <a th:href="@{/document/{id}/edit(id=${document.documentId})}">
+            <a th:href="@{/templates/{id}/edit(id=${template.templateId})}">
                 <div class="scribe-element view-element">
                     Редагувати
                 </div>
             </a>
-            <a th:href="@{/document/{id}/replace(id=${document.documentId})}">
+            <a th:href="@{/templates/{id}/replace(id=${template.templateId})}">
                 <div class="scribe-element view-element">
                     Продовжити
                 </div>
             </a>
-            <a th:href="@{/document/{id}/download(id=${document.documentId})}">
+            <a th:href="@{/templates/{id}/download(id=${template.templateId})}">
                 <div class="scribe-element view-element">
                     Завантажити
                 </div>
             </a>
-            <a th:href="@{/document/{id}/delete(id=${document.documentId})}">
+            <a th:href="@{/templates/{id}/delete(id=${template.templateId})}">
                 <div class="scribe-element view-element" id="delete">
                     Видалити
                 </div>
@@ -61,13 +61,13 @@
         </div>
     </buttons>
 
-    <form th:object="${document}">
+    <form th:object="${template}">
         <div class="form-group">
-            <label for="fileName" class="control-label">Файл:</label>
-            <input id="fileName" class="form-control" th:field="*{fileName}" readonly/>
+            <label for="filename" class="control-label">Файл:</label>
+            <input id="filename" class="form-control" th:field="*{filename}" readonly/>
         </div>
         <div class="form-group">
-            <label for="description" class="control-label">Опис документу:</label>
+            <label for="description" class="control-label">Опис шаблона:</label>
             <textarea id="description" class="form-control" th:field="*{description}"
                       maxlength="100" style="height:300px; min-height: 50px;" readonly></textarea>
         </div>

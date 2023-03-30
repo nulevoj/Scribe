@@ -1,4 +1,4 @@
-package ua.edu.ontu.service;
+package ua.edu.ontu.model.service;
 
 import org.springframework.stereotype.Service;
 import ua.edu.ontu.model.entity.Account;

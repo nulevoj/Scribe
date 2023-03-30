@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Документи</title>
+    <title>Шаблони</title>
     <th:block th:replace="~{fragments/head :: head}"></th:block>
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="main-container">
-    <!-- documentNotFound -->
-    <div th:if="${param.documentNotFound}">
-        <div class="alert alert-danger">Документ не знайдено в базі даних.</div>
+    <!-- templateNotFound -->
+    <div th:if="${param.templateNotFound}">
+        <div class="alert alert-danger">Шаблон не знайдено в базі даних.</div>
     </div>
     <!-- deletionSuccess -->
     <div th:if="${param.deletionSuccess}">
-        <div class="alert alert-info">Документ видалено.</div>
+        <div class="alert alert-info">Шаблон видалено.</div>
     </div>
 
-    <h3>Документи</h3>
-    <a th:href="@{/document/new}">
+    <h3>Шаблони</h3>
+    <a th:href="@{/templates/new}">
         <div class="scribe-element" style="float:none; padding: 5px; color: White; margin: 20px 0; ">
-            Додати документ
+            Додати шаблон
         </div>
     </a>
     <br>
 
-    <div th:each="document : ${documents}">
+    <div th:each="template : ${templates}">
         <br>
         <h5 style="text-align: center;">
-            <span th:text="${document.fileName}"></span>
+            <span th:text="${template.filename}"></span>
         </h5>
         <p style="white-space: pre-line">
-            <span th:text="${document.description}"></span>
+            <span th:text="${template.description}"></span>
         </p>
-        <a th:href="@{/document/{id}(id=${document.documentId})}">
+        <a th:href="@{/templates/{id}(id=${template.templateId})}">
             <div class="scribe-element" style="float: none; padding: 5px;">
-                Переглянути документ
+                Переглянути шаблон
             </div>
         </a>
     </div>

@@ -12,14 +12,16 @@
     <br>
     <strong>Перевірте правильність заміни і відкоригуйте значення, якщо потрібно.</strong>
     <br><br>
-    <form th:method="get" th:action="@{/document/{id}/replace/download(id=${id})}"
+    <form th:method="get" th:action="@{/templates/{id}/replace/download(id=${id})}"
           th:object="${dto}">
         <div th:each="entry : *{map}">
             <label class="control-label" th:text="${entry.key}">:</label>
             <input class="form-control" th:field="*{map[__${entry.key}__]}"/>
         </div>
         <br>
-        <input type="submit" class="form-control btn btn-primary" value="Завантажити .docx"/>
+        <input type="submit" class="form-control btn btn-primary" name="docx" value="Завантажити .docx"/>
+        <br>
+        <input type="submit" class="form-control btn btn-primary" name="pdf" value="Завантажити .pdf"/>
     </form>
 
 </div>

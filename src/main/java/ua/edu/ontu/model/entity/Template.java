@@ -3,37 +3,37 @@ package ua.edu.ontu.model.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "document")
-public class Document {
+@Table(name = "template")
+public class Template {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "document_id")
-    private Long documentId;
+    @Column(name = "template_id")
+    private Long templateId;
 
     @Column(name = "file_name", unique = true)
-    private String fileName;
+    private String filename;
 
     @Column(name = "description")
     private String description;
 
-    public Document() {
+    public Template() {
     }
 
-    public Long getDocumentId() {
-        return documentId;
+    public Long getTemplateId() {
+        return templateId;
     }
 
-    public void setDocumentId(Long documentId) {
-        this.documentId = documentId;
+    public void setTemplateId(Long templateId) {
+        this.templateId = templateId;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public String getDescription() {

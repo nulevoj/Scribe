@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.edu.ontu.dto.RegistrationDto;
-import ua.edu.ontu.service.AccountService;
+import ua.edu.ontu.model.service.AccountService;
 
 @Controller
 @RequestMapping("/authentication")
