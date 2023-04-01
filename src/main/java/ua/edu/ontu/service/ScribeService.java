@@ -1,5 +1,8 @@
 package ua.edu.ontu.service;
 
+import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
+import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -59,7 +62,22 @@ public class ScribeService {
     }
 
     public ResponseEntity<ByteArrayResource> downloadPdf(Scribe scribe) {
-        return null;
+        ByteArrayResource resource;
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            PdfOptions options = PdfOptions.create();
+            PdfConverter.getInstance().convert(scribe.getDocument(), outputStream, options);
+            resource = new ByteArrayResource(outputStream.toByteArray());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String filename = FilenameUtils.removeExtension(scribe.getFilename()) + ".pdf";
+        String encodedName = downloadService.encodeString(filename);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + encodedName);
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/pdf");
+        return downloadService.createResponse(resource, headers);
     }
 
 }
