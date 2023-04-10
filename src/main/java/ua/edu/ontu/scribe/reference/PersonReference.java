@@ -41,7 +41,7 @@ public class PersonReference {
     private void putStudent(Student student) {
         reference.putUnique("degree", student.getDegree());
         reference.putUnique("faculty", student.getFaculty());
-        reference.putUnique("year", student.getYear());
+        reference.putUnique("term", student.getYear());
         reference.putUnique("specialty", student.getSpecialty());
     }
 

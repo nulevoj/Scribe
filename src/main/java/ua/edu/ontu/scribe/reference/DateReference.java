@@ -15,7 +15,7 @@ public class DateReference {
         Reference reference = new Reference();
         reference.putUnique("year", getYear());
         reference.putUnique("date", getDate());
-        reference.putUnique("full date", getFullDate());
+        reference.putUnique("today", getToday());
         return reference.getMap();
     }
 
@@ -27,7 +27,7 @@ public class DateReference {
         return date.getDayOfMonth() + " " + GenitiveMonthUA.getMonth(date.getMonth().getValue());
     }
 
-    private String getFullDate() {
+    private String getToday() {
         return date.getDayOfMonth() + "." + String.format("%02d", date.getMonth().getValue()) + "." + date.getYear();
     }
 
