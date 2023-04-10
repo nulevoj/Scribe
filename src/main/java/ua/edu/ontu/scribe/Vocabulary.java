@@ -2,29 +2,38 @@ package ua.edu.ontu.scribe;
 
 import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.model.entity.Person;
-import ua.edu.ontu.scribe.reference.DateReference;
-import ua.edu.ontu.scribe.reference.PersonReference;
-import ua.edu.ontu.scribe.reference.Reference;
+import ua.edu.ontu.scribe.references.DateReference;
+import ua.edu.ontu.scribe.references.PersonReference;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Vocabulary {
 
-    private Reference reference = new Reference();
+    private Map<String, String> map = new HashMap<>();
+
+    public Vocabulary() {
+        putDate();
+    }
 
     public Vocabulary(Account account) {
-        putDate();
+        this();
         putPerson(account.getPerson());
     }
 
-    public String get(String key) {
-        return reference.get(key);
+    public Map<String, String> getMap() {
+        return map;
     }
 
     private void putDate() {
-        reference.putUnique(new DateReference().getDateReferences());
+        new DateReference(map).putDateReferences();
     }
 
     private void putPerson(Person person) {
-        reference.putUnique(new PersonReference().getPersonReferences(person));
+        if (person == null) {
+            return;
+        }
+        new PersonReference(map).putPersonReferences(person);
     }
 
 }

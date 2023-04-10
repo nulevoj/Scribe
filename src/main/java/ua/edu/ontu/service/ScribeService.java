@@ -34,13 +34,15 @@ public class ScribeService {
     public Map<String, String> getPreliminaryReplacementMap(String filename, Account account) {
         Scribe scribe = new Scribe(fileService.getFile(filename));
         Set<String> placeholders = scribe.getPlaceholders(placeholder);
-        Map<String, String> map = new LinkedHashMap<>();
-        Vocabulary vocabulary = new Vocabulary(account);
-        for (String placeholder : placeholders) {
-            map.put(placeholder, vocabulary.get(this.placeholder.parsePlaceholder(placeholder)));
-        }
         scribe.close();
-        return map;
+
+        Map<String, String> vocabulary = new Vocabulary(account).getMap();
+        Map<String, String> result = new LinkedHashMap<>();
+        for (String placeholder : placeholders) {
+            result.put(placeholder, vocabulary.get(this.placeholder.parsePlaceholder(placeholder)));
+        }
+
+        return result;
     }
 
     public ResponseEntity<ByteArrayResource> downloadDocx(Scribe scribe) {
