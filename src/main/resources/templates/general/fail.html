@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Помилка</title>
+    <th:block th:replace="~{fragments/head :: head}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="main-container">
+
+    <h3>Помилка</h3>
+
+    <!-- default -->
+    <div th:if="${param.default}">
+        <div class="alert alert-danger">Схоже, сталася помилка.</div>
+    </div>
+
+    <h6>
+        <p><a th:href="@{/}">*На головну*</a></p>
+    </h6>
+
+</div>
+</body>
+</html>
