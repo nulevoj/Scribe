@@ -10,7 +10,11 @@
 <div class="main-container">
 
     <h3>Список ключових слів для міток</h3>
-    <!--TODO-->
+
+    <br>
+    <ul th:object="${set}">
+        <li th:each="item : ${set}" th:text="${item}"></li>
+    </ul>
 
 </div>
 </body>
