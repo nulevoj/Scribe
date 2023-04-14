@@ -55,7 +55,7 @@ public class PersonReference {
             initial = person.getSurname() + " " +
                     person.getName().charAt(0) + ". " +
                     person.getPatronymic().charAt(0) + ".";
-        } catch (StringIndexOutOfBoundsException ignored) {
+        } catch (StringIndexOutOfBoundsException | NullPointerException ignored) {
         }
         return initial;
     }
@@ -66,7 +66,7 @@ public class PersonReference {
             fullName = person.getSurname() + " " +
                     person.getName() + " " +
                     person.getPatronymic();
-        } catch (StringIndexOutOfBoundsException ignored) {
+        } catch (StringIndexOutOfBoundsException | NullPointerException ignored) {
         }
         return fullName;
     }

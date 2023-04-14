@@ -32,17 +32,28 @@ public class ScribeService {
     private DownloadService downloadService;
 
     public Map<String, String> getPreliminaryReplacementMap(String filename, Account account) {
+        Set<String> placeholders = getPlaceholders(filename);
+        Map<String, String> vocabularyMap = getVocabularyMap(account);
+
+        Map<String, String> result = new LinkedHashMap<>();
+        for (String placeholder : placeholders) {
+            String key = this.placeholder.parsePlaceholder(placeholder);
+            result.put(placeholder, vocabularyMap.get(key));
+        }
+        return result;
+    }
+
+    public Set<String> getPlaceholders(String filename) {
         Scribe scribe = new Scribe(fileService.getFile(filename));
         Set<String> placeholders = scribe.getPlaceholders(placeholder);
         scribe.close();
+        return placeholders;
+    }
 
-        Map<String, String> vocabulary = new Vocabulary(account).getMap();
-        Map<String, String> result = new LinkedHashMap<>();
-        for (String placeholder : placeholders) {
-            result.put(placeholder, vocabulary.get(this.placeholder.parsePlaceholder(placeholder)));
-        }
-
-        return result;
+    public Map<String, String> getVocabularyMap(Account account) {
+        Vocabulary vocabulary = new Vocabulary();
+        vocabulary.putAll(account);
+        return vocabulary.getMap();
     }
 
     public ResponseEntity<ByteArrayResource> downloadDocx(Scribe scribe) {

@@ -12,28 +12,28 @@ public class Vocabulary {
 
     private Map<String, String> map = new HashMap<>();
 
-    public Vocabulary() {
+    public void putAll(Account account) {
         putDate();
+        putPerson(account.getPerson());
     }
 
-    public Vocabulary(Account account) {
-        this();
-        putPerson(account.getPerson());
+    public void putDate() {
+        new DateReference(map).putDateReferences();
+    }
+
+    public void putPerson(Person person) {
+        if (person == null) {
+            return;
+        }
+        new PersonReference(map).putPersonReferences(person);
     }
 
     public Map<String, String> getMap() {
         return map;
     }
 
-    private void putDate() {
-        new DateReference(map).putDateReferences();
-    }
-
-    private void putPerson(Person person) {
-        if (person == null) {
-            return;
-        }
-        new PersonReference(map).putPersonReferences(person);
+    public void setMap(Map<String, String> map) {
+        this.map = map;
     }
 
 }
