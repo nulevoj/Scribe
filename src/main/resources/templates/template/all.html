@@ -17,26 +17,37 @@
     </div>
 
     <h3>Шаблони</h3>
+
     <a th:href="@{/templates/new}">
-        <div class="scribe-element" style="float:none; padding: 5px; color: White; margin: 20px 0; ">
+        <div class="scribe-element"
+             style="float:none; padding: 5px; color: White; margin: 20px 0; width:20%;">
             Додати шаблон
         </div>
     </a>
-    <br>
+    <br><br>
 
-    <div th:each="template : ${templates}">
+    <div th:each="template : ${templates}" style="display: flex; margin: 20px 0;">
         <br>
-        <h5 style="text-align: center;">
-            <span th:text="${template.filename}"></span>
-        </h5>
-        <p style="white-space: pre-line">
-            <span th:text="${template.description}"></span>
-        </p>
-        <a th:href="@{/templates/{id}(id=${template.templateId})}">
-            <div class="scribe-element" style="float: none; padding: 5px;">
-                Переглянути шаблон
+
+        <div style="width: 30%; float: left;">
+            <div style="display: block; text-align: center; margin-top: 10px;">
+                <strong>
+                    <span th:text="${template.filename}"></span>
+                </strong>
             </div>
-        </a>
+            <div style="float: none; padding: 5px; margin-top: 10px;">
+                <a th:href="@{/templates/{id}(id=${template.templateId})}">
+                    <div class="scribe-element" style="width: 100%">
+                        Переглянути шаблон
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div style="width: 78%; margin-left: 2%; float: left;">
+            <textarea class="form-control" th:text="${template.description}"
+                      style="height: 100px; min-height: 50px;" readonly></textarea>
+        </div>
     </div>
 
 </div>
