@@ -41,8 +41,13 @@ public class TemplateController {
     private ScribeService scribeService;
 
     @GetMapping
-    public String allTemplatesPage(Model model) {
-        model.addAttribute("templates", templateService.findAll());
+    public String allTemplatesPage(@RequestParam(value = "search", required = false) String search,
+                                   Model model) {
+        if (search == null || search.isBlank()) {
+            model.addAttribute("templates", templateService.findAll());
+        } else {
+            model.addAttribute("templates", templateService.findAll(search));
+        }
         return "template/all";
     }
 

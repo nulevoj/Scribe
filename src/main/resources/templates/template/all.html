@@ -24,8 +24,17 @@
             Додати шаблон
         </div>
     </a>
-    <br><br>
 
+    <form th:method="get" th:action="@{/templates}">
+        <div class="form-group" style="width: 70%; float: left;">
+            <input id="search" class="form-control" name="search" placeholder="Пошук"/>
+        </div>
+        <div class="form-group" style="width: 28%; float: left; margin-left: 2%;">
+            <input type="submit" class="form-control btn btn-primary" value="Знайти"/>
+        </div>
+    </form>
+
+    <br><br>
     <div th:each="template : ${templates}" style="display: flex; margin: 20px 0;">
         <br>
 

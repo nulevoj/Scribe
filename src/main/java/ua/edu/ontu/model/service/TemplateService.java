@@ -20,6 +20,10 @@ public class TemplateService {
         return templateRepository.findAll();
     }
 
+    public Iterable<Template> findAll(String searchText) {
+        return templateRepository.findByFilenameOrDescriptionContainingIgnoreCase(searchText);
+    }
+
     public Template findById(Long id) {
         return templateRepository.findById(id).get();
     }
