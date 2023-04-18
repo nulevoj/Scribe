@@ -3,7 +3,6 @@ package ua.edu.ontu.scribe;
 import com.xandryex.WordReplacer;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import ua.edu.ontu.scribe.placeholder.Placeholder;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,10 +39,10 @@ public class Scribe {
         return document;
     }
 
-    public Set<String> getPlaceholders(Placeholder placeholder) {
+    public Set<String> getPlaceholders(String regex) {
         Set<String> result = new LinkedHashSet<>();
         String text = new XWPFWordExtractor(document).getText();
-        Matcher matcher = Pattern.compile(placeholder.getRegex()).matcher(text);
+        Matcher matcher = Pattern.compile(regex).matcher(text);
         while (matcher.find()) {
             result.add(matcher.group());
         }

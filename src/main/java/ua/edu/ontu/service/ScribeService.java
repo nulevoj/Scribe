@@ -45,7 +45,7 @@ public class ScribeService {
 
     public Set<String> getPlaceholders(String filename) {
         Scribe scribe = new Scribe(fileService.getFile(filename));
-        Set<String> placeholders = scribe.getPlaceholders(placeholder);
+        Set<String> placeholders = scribe.getPlaceholders(placeholder.getRegex());
         scribe.close();
         return placeholders;
     }
