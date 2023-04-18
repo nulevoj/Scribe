@@ -1,4 +1,4 @@
-package ua.edu.ontu.scribe;
+package ua.edu.ontu.scribe.vocabulary;
 
 import org.junit.jupiter.api.Test;
 import ua.edu.ontu.model.entity.Account;

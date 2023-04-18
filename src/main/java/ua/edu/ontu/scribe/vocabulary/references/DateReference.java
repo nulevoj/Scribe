@@ -1,4 +1,4 @@
-package ua.edu.ontu.scribe.references;
+package ua.edu.ontu.scribe.vocabulary.references;
 
 import java.time.LocalDate;
 import java.time.ZoneId;

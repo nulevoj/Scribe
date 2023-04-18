@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.model.entity.Employee;
 import ua.edu.ontu.model.entity.Student;
-import ua.edu.ontu.scribe.Vocabulary;
+import ua.edu.ontu.scribe.vocabulary.Vocabulary;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

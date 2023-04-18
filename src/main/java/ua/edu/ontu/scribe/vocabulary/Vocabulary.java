@@ -1,9 +1,9 @@
-package ua.edu.ontu.scribe;
+package ua.edu.ontu.scribe.vocabulary;
 
 import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.model.entity.Person;
-import ua.edu.ontu.scribe.references.DateReference;
-import ua.edu.ontu.scribe.references.PersonReference;
+import ua.edu.ontu.scribe.vocabulary.references.DateReference;
+import ua.edu.ontu.scribe.vocabulary.references.PersonReference;
 
 import java.util.HashMap;
 import java.util.Map;

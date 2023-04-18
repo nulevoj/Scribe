@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ua.edu.ontu.model.entity.Account;
 import ua.edu.ontu.scribe.Scribe;
-import ua.edu.ontu.scribe.Vocabulary;
+import ua.edu.ontu.scribe.vocabulary.Vocabulary;
 import ua.edu.ontu.scribe.placeholder.Placeholder;
 
 import java.io.ByteArrayOutputStream;

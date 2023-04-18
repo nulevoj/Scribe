@@ -1,4 +1,4 @@
-package ua.edu.ontu.scribe.references;
+package ua.edu.ontu.scribe.vocabulary.references;
 
 import ua.edu.ontu.model.entity.Employee;
 import ua.edu.ontu.model.entity.Person;
