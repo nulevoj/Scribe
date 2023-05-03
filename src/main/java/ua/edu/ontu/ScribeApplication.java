@@ -8,7 +8,6 @@ public class ScribeApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ScribeApplication.class, args);
-
     }
 
 }

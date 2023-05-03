@@ -20,7 +20,7 @@ public class Account {
     @Column(name = "password")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "account")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "account")
     private Person person;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
@@ -30,16 +30,13 @@ public class Account {
             inverseJoinColumns = @JoinColumn(name = "role_id"),
             uniqueConstraints = @UniqueConstraint(columnNames = {"account_id", "role_id"})
     )
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     public Account() {
 
     }
 
     public void addRole(Role role) {
-        if (roles == null) {
-            roles = new HashSet<>();
-        }
         roles.add(role);
     }
 

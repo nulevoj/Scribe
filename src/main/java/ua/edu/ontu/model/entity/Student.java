@@ -5,10 +5,6 @@ import jakarta.persistence.*;
 @Entity
 public class Student extends Person {
 
-    @Id
-    @Column(name = "account_id")
-    private Long accountId;
-
     @Column(name = "faculty")
     private String faculty;
 
@@ -23,14 +19,6 @@ public class Student extends Person {
 
     public Student() {
 
-    }
-
-    public Long getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
     }
 
     public String getFaculty() {

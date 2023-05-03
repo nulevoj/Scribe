@@ -28,6 +28,7 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/authentication/**", "/css/**", "/pictures/**").permitAll()
+                                //.anyRequest().permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin()

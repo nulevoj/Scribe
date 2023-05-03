@@ -5,10 +5,6 @@ import jakarta.persistence.*;
 @Entity
 public class Employee extends Person {
 
-    @Id
-    @Column(name = "account_id")
-    private Long accountId;
-
     @Column(name = "position")
     private String position;
 
@@ -17,14 +13,6 @@ public class Employee extends Person {
 
     public Employee() {
 
-    }
-
-    public Long getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
     }
 
     public String getPosition() {

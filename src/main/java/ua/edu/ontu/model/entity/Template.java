@@ -11,7 +11,7 @@ public class Template {
     @Column(name = "template_id")
     private Long templateId;
 
-    @Column(name = "file_name", unique = true)
+    @Column(name = "filename", unique = true)
     private String filename;
 
     @Column(name = "description")
