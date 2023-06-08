@@ -18,12 +18,14 @@
 
     <h3>Шаблони</h3>
 
-    <a th:href="@{/templates/new}">
-        <div class="scribe-element"
-             style="float:none; padding: 5px; color: White; margin: 20px 0; width:20%;">
-            Додати шаблон
-        </div>
-    </a>
+    <div style="width:20%;">
+        <a th:href="@{/templates/new}">
+            <div class="scribe-element" style="float:none; padding: 5px; color: White; margin: 20px 0;">
+                Додати шаблон
+            </div>
+        </a>
+    </div>
+
 
     <form th:method="get" th:action="@{/templates}">
         <div class="form-group" style="width: 70%; float: left;">
